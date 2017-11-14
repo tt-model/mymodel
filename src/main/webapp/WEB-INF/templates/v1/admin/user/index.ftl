@@ -94,7 +94,9 @@
                         <thead>
                         <tr>
                             <#list headerTitle as head>
-                                <th><div class="layui-table-cell">${head['title']}</div></th>
+                                <th>
+                                    <div class="layui-table-cell"><@s.message "${head['title']}" /></div>
+                                </th>
                             </#list>
                         </tr>
                         </thead>
