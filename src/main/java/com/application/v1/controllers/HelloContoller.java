@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 import java.util.Map;
@@ -29,6 +30,7 @@ public class HelloContoller {
         view.put("main", "true");
         List<User> userList = userDao.findAll();
         view.put("colletion", userList);
+        view.put("total", userList.size());
         return "/v1/admin/user/index";
     }
 
