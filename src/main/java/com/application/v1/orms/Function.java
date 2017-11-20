@@ -1,24 +1,30 @@
 package com.application.v1.orms;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
- * @auther ttm
- * @date 2017/10/31
+ * 功能
+ * @author ttm
+ * @data 2017/11/21
  */
 @Entity
-@Table(name = "mm_user")
-public class User {
+@Table(name = "mm_function")
+public class Function {
 
     @Id
     @GeneratedValue
     private int id;
 
-    @Column(name = "name")
     private String name;
 
-    @Column(name = "password")
-    private String password;
+    @Column(name = "parent_id")
+    private int parentId;
+
+    private String url;
+
+    @Column(name = "serial_number")
+    private int serialNumber;
 
     @Column(name = "create_time")
     private String createTime;
@@ -42,12 +48,28 @@ public class User {
         this.name = name;
     }
 
-    public String getPassword() {
-        return password;
+    public int getParentId() {
+        return parentId;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setParentId(int parentId) {
+        this.parentId = parentId;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public int getSerialNumber() {
+        return serialNumber;
+    }
+
+    public void setSerialNumber(int serialNumber) {
+        this.serialNumber = serialNumber;
     }
 
     public String getCreateTime() {
@@ -64,16 +86,5 @@ public class User {
 
     public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                ", createTime='" + createTime + '\'' +
-                ", updateTime='" + updateTime + '\'' +
-                '}';
     }
 }

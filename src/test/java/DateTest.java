@@ -1,3 +1,5 @@
+import com.application.v1.library.DateUtil;
+import org.apache.commons.lang.time.DateUtils;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -12,9 +14,7 @@ public class DateTest {
 
     @Test
     public void dateTest() {
-        LocalDate start = LocalDate.of(2017, 1, 1);
-        LocalDate end = LocalDate.of(2017, 11, 6);
-        System.out.println("ttm | " + (end.toEpochDay() - start.toEpochDay()));
+        System.out.println("ttm | " + DateUtil.fetchCurrentTime());
     }
 
 }

@@ -34,21 +34,4 @@ public class HelloContoller {
         return "/v1/admin/user/index";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login() {
-        return "/v1/admin/user/login";
-    }
-
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(User user, Map<String, Object> view) {
-        view.put("loginUser", user);
-        return "redirect:/v1/admin/index";
-    }
-
-    @RequestMapping(value = "/loginOut", method = RequestMethod.GET)
-    public String loginOut(Map<String, Object> view) {
-        view.remove("loginUser");
-        return "/v1/admin/user/index";
-    }
-
 }
