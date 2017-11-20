@@ -4,23 +4,25 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.io.Serializable;
 
 /**
+ * 用户
  * @auther ttm
  * @date 2017/10/31
  */
 @Entity
-public class User {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue
     private int id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "username")
+    private String userName;
 
-    @Column(name = "age")
-    private int age;
+    @Column(name = "password")
+    private String password;
 
     public int getId() {
         return id;
@@ -30,19 +32,20 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public int getAge() {
-        return age;
+    public String getPassword() {
+        return password;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setPassword(String password) {
+        this.password = password;
     }
+
 }
