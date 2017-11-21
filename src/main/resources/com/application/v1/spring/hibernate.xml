@@ -15,7 +15,7 @@
             <value>com.mysql.jdbc.Driver</value>
         </property>
         <property name="jdbcUrl">
-            <value>jdbc:mysql://${mysql.serverUrl}/mydemo?useUnicode=true&amp;characterEncoding=utf-8&amp;zeroDateTimeBehavior=convertToNull</value>
+            <value>jdbc:mysql://${mysql.serverUrl}/wxy?useUnicode=true&amp;characterEncoding=utf-8&amp;zeroDateTimeBehavior=convertToNull</value>
         </property>
         <property name="user">
             <value>${mysql.user}</value>
