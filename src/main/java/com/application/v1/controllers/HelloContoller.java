@@ -2,13 +2,11 @@ package com.application.v1.controllers;
 
 import com.application.v1.daos.UserDao;
 import com.application.v1.orms.User;
-import com.sun.scenario.effect.impl.state.LinearConvolveRenderState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 import java.util.Map;

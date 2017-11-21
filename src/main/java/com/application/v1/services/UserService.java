@@ -26,4 +26,18 @@ public interface UserService {
      */
     public boolean userSave(User user);
 
+    /**
+     * 用戶查詢 id
+     * @param id
+     * @return
+     */
+    public User userFind(Integer id);
+
+    /**
+     * 用戶修改
+     * @param user
+     * @return
+     */
+    public boolean userUpdate(User user);
+
 }
