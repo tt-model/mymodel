@@ -8,14 +8,14 @@
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
        http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <context:property-placeholder location="classpath*:com/application/v1/conf/*.properties"/>
+    <context:property-placeholder location="classpath*:com/application/v1/conf/db_online.properties"/>
 
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
         <property name="driverClass">
             <value>com.mysql.jdbc.Driver</value>
         </property>
         <property name="jdbcUrl">
-            <value>jdbc:mysql://${mysql.serverUrl}/wxy?useUnicode=true&amp;characterEncoding=utf-8&amp;zeroDateTimeBehavior=convertToNull</value>
+            <value>jdbc:mysql://${mysql.serverUrl}/rrjfc3b94z?useUnicode=true&amp;characterEncoding=utf-8&amp;zeroDateTimeBehavior=convertToNull</value>
         </property>
         <property name="user">
             <value>${mysql.user}</value>

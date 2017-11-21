@@ -1,15 +1,14 @@
 package com.application.v1.daos;
 
 import com.application.v1.orms.User;
+import com.application.v1.repositorys.CustomizedUserRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.NoRepositoryBean;
-import org.springframework.stereotype.Repository;
 
 /**
  * @auther ttm
  * @date 2017/10/31
  */
-public interface UserDao extends JpaRepository<User, Integer> {
+public interface UserDao extends JpaRepository<User, Integer>, com.application.v1.repositorys.CustomizedUserRepository {
 
     /**
      * 账号密码查询用户
