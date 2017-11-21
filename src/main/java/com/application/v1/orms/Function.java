@@ -1,36 +1,36 @@
 package com.application.v1.orms;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import java.io.Serializable;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * 功能
- * @auther ttm
- * @date 2017/11/20
+ * @author ttm
+ * @data 2017/11/21
  */
 @Entity
-public class Function implements Serializable {
+@Table(name = "mm_function")
+public class Function {
 
     @Id
     @GeneratedValue
     private int id;
 
-    @Column(name = "name")
     private String name;
 
+    @Column(name = "parent_id")
     private int parentId;
 
-    @Column(name = "url")
     private String url;
 
     @Column(name = "serial_number")
     private int serialNumber;
 
-    @Column(name = "accordion")
-    private int accordion;
+    @Column(name = "create_time")
+    private String createTime;
+
+    @Column(name = "update_time")
+    private String updateTime;
 
     public int getId() {
         return id;
@@ -72,11 +72,19 @@ public class Function implements Serializable {
         this.serialNumber = serialNumber;
     }
 
-    public int getAccordion() {
-        return accordion;
+    public String getCreateTime() {
+        return createTime;
     }
 
-    public void setAccordion(int accordion) {
-        this.accordion = accordion;
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
     }
 }

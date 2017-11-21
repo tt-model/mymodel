@@ -1,28 +1,30 @@
 package com.application.v1.orms;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import java.io.Serializable;
+import javax.persistence.*;
 
 /**
- * 用户
  * @auther ttm
  * @date 2017/10/31
  */
 @Entity
-public class User implements Serializable {
+@Table(name = "mm_user")
+public class User {
 
     @Id
     @GeneratedValue
     private int id;
 
-    @Column(name = "username")
-    private String userName;
+    @Column(name = "name")
+    private String name;
 
     @Column(name = "password")
     private String password;
+
+    @Column(name = "create_time")
+    private String createTime;
+
+    @Column(name = "update_time")
+    private String updateTime;
 
     public int getId() {
         return id;
@@ -32,12 +34,12 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getName() {
+        return name;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPassword() {
@@ -48,4 +50,30 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", createTime='" + createTime + '\'' +
+                ", updateTime='" + updateTime + '\'' +
+                '}';
+    }
 }

@@ -1,3 +1,5 @@
+import com.application.v1.library.AesEncodeUtil;
+import com.application.v1.library.DateUtil;
 import com.application.v1.orms.User;
 import com.application.v1.services.UserService;
 import org.junit.Ignore;
@@ -22,9 +24,15 @@ public class UserTest {
     private UserService userService;
 
     @Test
-    public void userTest() {
-        List<User> usersList = userService.userList();
-        System.out.println("ttm | " + usersList.toString());
+    public void userTest() throws Exception {
+        User user = new User();
+        user.setName("admin");
+        user.setPassword(AesEncodeUtil.encryption("tangtaiming123"));
+        String currentTime = DateUtil.fetchCurrentTime();
+        user.setCreateTime(currentTime);
+        user.setUpdateTime(currentTime);
+        userService.userSave(user);
+        System.out.println("ttm | " + user);
     }
 
 }

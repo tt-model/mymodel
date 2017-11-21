@@ -3,24 +3,22 @@ package com.application.v1.orms;
 import javax.persistence.*;
 
 /**
- * 角色
  * @author ttm
  * @data 2017/11/21
  */
 @Entity
-@Table(name = "mm_role")
-public class Role {
+@Table(name = "mm_role_function")
+public class RoleFunction {
 
     @Id
     @GeneratedValue
     private int id;
 
-    private int name;
+    @Column(name = "role_id")
+    private int roleId;
 
-    @Column(name = "parent_id")
-    private int parentId;
-
-    private int status;
+    @Column(name = "function_id")
+    private int functionId;
 
     @Column(name = "create_time")
     private String createTime;
@@ -36,28 +34,20 @@ public class Role {
         this.id = id;
     }
 
-    public int getName() {
-        return name;
+    public int getRoleId() {
+        return roleId;
     }
 
-    public void setName(int name) {
-        this.name = name;
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
     }
 
-    public int getParentId() {
-        return parentId;
+    public int getFunctionId() {
+        return functionId;
     }
 
-    public void setParentId(int parentId) {
-        this.parentId = parentId;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
+    public void setFunctionId(int functionId) {
+        this.functionId = functionId;
     }
 
     public String getCreateTime() {
