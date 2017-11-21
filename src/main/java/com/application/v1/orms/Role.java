@@ -15,7 +15,7 @@ public class Role {
     @GeneratedValue
     private int id;
 
-    private int name;
+    private String name;
 
     @Column(name = "parent_id")
     private int parentId;
@@ -36,11 +36,11 @@ public class Role {
         this.id = id;
     }
 
-    public int getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(int name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -74,5 +74,17 @@ public class Role {
 
     public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
+    }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", parentId=" + parentId +
+                ", status=" + status +
+                ", createTime='" + createTime + '\'' +
+                ", updateTime='" + updateTime + '\'' +
+                '}';
     }
 }
