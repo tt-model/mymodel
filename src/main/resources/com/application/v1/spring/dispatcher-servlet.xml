@@ -47,10 +47,11 @@
 
     <!--<util:properties id="propertiesReader" location="classpath*:etc/conf/common.properties" />-->
 
+    <mvc:default-servlet-handler />
     <mvc:view-controller path="/" view-name="/v1/welcome"/>
 
-    <mvc:resources mapping="/static/**" location="/WEB-INF/static/" cache-period="31556926"/>
-    <mvc:default-servlet-handler />
+    <mvc:resources mapping="/static/**" location="/WEB-INF/static/"/>
+
 
     <mvc:interceptors>
         <mvc:interceptor>

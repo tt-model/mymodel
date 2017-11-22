@@ -1,5 +1,6 @@
 package com.application.v1.services;
 
+import com.application.v1.library.ServiceResponse;
 import com.application.v1.orms.User;
 
 import java.util.List;
@@ -10,6 +11,13 @@ import java.util.Map;
  * @date 2017/10/31
  */
 public interface UserService {
+
+    /**
+     * 用户名 密码查询一个用户
+     * @param user
+     * @return
+     */
+    public ServiceResponse userOne(User user);
 
     /**
      * 用户名 密码查询一个用户

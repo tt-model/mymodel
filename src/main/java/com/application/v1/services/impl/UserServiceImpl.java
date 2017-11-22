@@ -1,11 +1,16 @@
 package com.application.v1.services.impl;
 
 import com.application.v1.daos.UserDao;
+import com.application.v1.library.AesEncodeUtil;
+import com.application.v1.library.ServiceResponse;
+import com.application.v1.library.ServiceResponseUtil;
 import com.application.v1.orms.User;
 import com.application.v1.repositorys.UserRepository;
 import com.application.v1.services.UserService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @auther ttm
@@ -18,6 +23,31 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     @Override
+    public ServiceResponse userOne(User user) {
+        String userName = user.getName();
+        String password = user.getPassword();
+        if (StringUtils.isEmpty(userName)) {
+            return ServiceResponseUtil.fail("用户名不能为空!");
+        }
+        if (StringUtils.isEmpty(password)) {
+            return ServiceResponseUtil.fail("密码不能为空!");
+        }
+
+        String encodePassword = "";
+        try {
+            encodePassword = AesEncodeUtil.encryption(password);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        User fetchUser = userDao.findUserByNameAndPassword(userName, encodePassword);
+        if (fetchUser == null) {
+            return ServiceResponseUtil.fail("用户名或者密码不正确!");
+        } else {
+            return ServiceResponseUtil.success(fetchUser);
+        }
+    }
+
+    @Override
     public User userOne(String name, String password) {
         return userDao.findUserByNameAndPassword(name, password);
     }
@@ -28,6 +58,7 @@ public class UserServiceImpl implements UserService {
         return saveUser.getId() > 0 ? true : false;
     }
 
+    @Transactional
     @Override
     public User userFind(Integer id) {
         return userDao.findOne(id);
