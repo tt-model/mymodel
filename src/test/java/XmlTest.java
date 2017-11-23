@@ -9,13 +9,13 @@ import java.io.IOException;
  * @auther ttm
  * @date 2017/11/8
  */
-@Ignore
+//@Ignore
 public class XmlTest {
 
     @Test
     public void xmlParse() {
         BaseParseXml parseXml = new BaseParseXml();
-        parseXml.parseMainXml("index");
+        parseXml.parseMainXml("userManager");
     }
 
 }

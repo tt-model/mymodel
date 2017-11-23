@@ -72,6 +72,15 @@ public class BaseParseXml {
                 parseXmlList.add(columnMap);
             }
             xmlMap.put("headerTitle", parseXmlList);
+            //widths
+            List<String> parseWidthList = new ArrayList<>();
+            Element widths = root.element("widths");
+            List<Element> widthColumnList = widths.elements("width");
+            for (Element element : widthColumnList) {
+                String width = element.attributeValue("value");
+                parseWidthList.add(width);
+            }
+            xmlMap.put("widthTitle", parseWidthList);
             System.out.println("ttm | " + xmlMap.toString());
         } else {
             logger.warn(path + " file is null");

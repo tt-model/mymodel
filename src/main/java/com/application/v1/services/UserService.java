@@ -13,6 +13,12 @@ import java.util.Map;
 public interface UserService {
 
     /**
+     * 用户信息
+     * @return
+     */
+    public List<User> userList();
+
+    /**
      * 用户名 密码查询一个用户
      * @param user
      * @return

@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * @auther ttm
  * @date 2017/10/31
@@ -21,6 +23,11 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao userDao;
+
+    @Override
+    public List<User> userList() {
+        return userDao.findAll();
+    }
 
     @Override
     public ServiceResponse userOne(User user) {
@@ -58,7 +65,6 @@ public class UserServiceImpl implements UserService {
         return saveUser.getId() > 0 ? true : false;
     }
 
-    @Transactional
     @Override
     public User userFind(Integer id) {
         return userDao.findOne(id);

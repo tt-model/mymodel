@@ -17,7 +17,6 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping(value = "/v1/admin")
-@SessionAttributes(value = {"loginUser"})
 public class HelloContoller {
 
     @Autowired
@@ -25,11 +24,11 @@ public class HelloContoller {
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index(Map<String, Object> view) {
-        view.put("main", "true");
-        List<User> userList = userDao.findAll();
-        view.put("colletion", userList);
-        view.put("total", userList.size());
-        return "/v1/admin/user/index";
+//        view.put("main", "true");
+//        List<User> userList = userDao.findAll();
+//        view.put("colletion", userList);
+//        view.put("total", userList.size());
+        return "/v1/admin/index";
     }
 
 }

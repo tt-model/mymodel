@@ -3,12 +3,24 @@
         <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
         <ul class="layui-nav layui-nav-tree"  lay-filter="test">
             <li class="layui-nav-item layui-nav-itemed">
-                <a class="" href="javascript:;">功能列表</a>
+                <a class="" href="javascript:;">所有功能</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="admin.php?c=ArticleCategory">文章类别管理</a></dd>
-                    <dd><a href="admin.php?c=Article">文章信息管理</a></dd>
+                    <dd><a href="javascript:;">用户管理</a></dd>
+                    <dd><a href="javascript:;">列表二</a></dd>
+                    <dd><a href="javascript:;">列表三</a></dd>
+                    <dd><a href="">超链接</a></dd>
                 </dl>
             </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">解决方案</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="javascript:;">列表一</a></dd>
+                    <dd><a href="javascript:;">列表二</a></dd>
+                    <dd><a href="">超链接</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="">云市场</a></li>
+            <li class="layui-nav-item"><a href="">发布商品</a></li>
         </ul>
     </div>
 </div>
