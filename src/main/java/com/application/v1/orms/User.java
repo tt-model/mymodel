@@ -28,6 +28,12 @@ public class User {
     @Column(name = "update_time")
     private String updateTime;
 
+//    @JoinTable(
+//            name = "mm_user_role",
+//            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+//            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
+//    private Set<Role> roles;
+
     public int getId() {
         return id;
     }
@@ -67,6 +73,14 @@ public class User {
     public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
     }
+
+//    public Set<Role> getRoles() {
+//        return roles;
+//    }
+//
+//    public void setRoles(Set<Role> roles) {
+//        this.roles = roles;
+//    }
 
     @Override
     public String toString() {
