@@ -28,11 +28,12 @@ public class User {
     @Column(name = "update_time")
     private String updateTime;
 
-//    @JoinTable(
-//            name = "mm_user_role",
-//            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
-//            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
-//    private Set<Role> roles;
+    @ManyToMany
+    @JoinTable(
+            name = "mm_user_role",
+            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
+    private List<Role> roles;
 
     public int getId() {
         return id;
@@ -74,13 +75,13 @@ public class User {
         this.updateTime = updateTime;
     }
 
-//    public Set<Role> getRoles() {
-//        return roles;
-//    }
-//
-//    public void setRoles(Set<Role> roles) {
-//        this.roles = roles;
-//    }
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
 
     @Override
     public String toString() {
@@ -90,6 +91,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", createTime='" + createTime + '\'' +
                 ", updateTime='" + updateTime + '\'' +
+                ", roles=" + roles +
                 '}';
     }
 }
