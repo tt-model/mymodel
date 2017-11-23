@@ -8,7 +8,7 @@
 
     <context:component-scan base-package="com.application.v1.daos" />
     <context:component-scan base-package="com.application.v1.repositorys" />
-    <context:component-scan base-package="com.application.v1.services.impl" />
+    <context:component-scan base-package="com.application.v1.services" />
 
 
     <!-- FreeMarker模板路径 -->

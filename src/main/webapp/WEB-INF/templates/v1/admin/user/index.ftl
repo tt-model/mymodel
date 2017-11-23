@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>Bride 后台管理</title>
-    <link rel="stylesheet" href="../../../../static/plugin/layui/css/layui.css">
+    <link rel="stylesheet" href="/static/plugin/layui/css/layui.css" />
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -161,7 +161,7 @@
         © Bride.com - 底部固定区域
     </div>
 </div>
-<script src="../../../../static/plugin/layui/layui.js"></script>
+<script type="text/javascript" src="/static/plugin/layui/layui.all.js"></script>
 <script>
     //JavaScript代码区域
     layui.use('element', function(){

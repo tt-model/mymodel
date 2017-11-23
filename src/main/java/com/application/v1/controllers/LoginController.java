@@ -1,5 +1,7 @@
 package com.application.v1.controllers;
 
+import com.application.v1.library.JsonUtil;
+import com.application.v1.library.ServiceResponse;
 import com.application.v1.orms.User;
 import com.application.v1.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +30,12 @@ public class LoginController {
      * @return
      */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login() {
-        return "/v1/admin/user/login";
+    public String login(Map<String, Object> view) {
+        User user = ( User ) view.get("loginUser");
+        if (user == null) {
+            return "/v1/admin/user/login";
+        }
+        return "/v1/admin/index";
     }
 
     /**
@@ -40,7 +46,12 @@ public class LoginController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ModelAndView login(User user) {
         ModelAndView view = new ModelAndView();
-        view.setViewName("redirect:/v1/admin/index");
+        ServiceResponse response = userService.userOne(user);
+        if (response.getCode() == 200) {
+            view.addObject("loginUser", response.getResult());
+        }
+        view.addObject("response", JsonUtil.toJson(response));
+        view.setViewName("/v1/base/response");
         return view;
     }
 

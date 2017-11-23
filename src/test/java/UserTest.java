@@ -2,8 +2,12 @@ import com.application.v1.library.AesEncodeUtil;
 import com.application.v1.library.DateUtil;
 import com.application.v1.orms.User;
 import com.application.v1.services.UserService;
+import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @auther ttm
@@ -30,9 +34,8 @@ public class UserTest extends SpringTest {
     @Test
     public void updateTest() {
         User user = userService.userFind(1);
-        System.out.println("ttm | " + user);
-//        user.setName("admin 1");
-//        userService.userUpdate(user);
+        user.setName("admin 1");
+        userService.userUpdate(user);
     }
 
 }
