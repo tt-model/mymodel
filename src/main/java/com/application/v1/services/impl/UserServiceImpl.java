@@ -9,6 +9,8 @@ import com.application.v1.repositorys.UserRepository;
 import com.application.v1.services.UserService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +25,19 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao userDao;
+
+    /**
+     * 分页查询数据
+     *
+     * @param pageNumber
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public List<User> userList(int pageNumber, int pageSize) {
+        Page page = userDao.findAll(new PageRequest(pageNumber, pageSize));
+        return page.getContent();
+    }
 
     @Override
     public List<User> userList() {

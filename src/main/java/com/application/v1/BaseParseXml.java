@@ -62,6 +62,7 @@ public class BaseParseXml {
             Element root = document.getRootElement();
             logger.info("root " + root.getName());
             Element header = root.element("headers");
+            header.attributeValue("");
             List<Element> headerColumnList = header.elements("column");
             for (Element element : headerColumnList) {
                 String name = element.attributeValue("name");
@@ -71,6 +72,7 @@ public class BaseParseXml {
                 columnMap.put("title", title);
                 parseXmlList.add(columnMap);
             }
+            xmlMap.put("headers", "");
             xmlMap.put("headerTitle", parseXmlList);
             //widths
             List<String> parseWidthList = new ArrayList<>();

@@ -13,6 +13,14 @@ import java.util.Map;
 public interface UserService {
 
     /**
+     * 分页查询数据
+     * @param pageNumber
+     * @param pageSize
+     * @return
+     */
+    public List<User> userList(int pageNumber, int pageSize);
+
+    /**
      * 用户信息
      * @return
      */

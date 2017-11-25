@@ -51,10 +51,10 @@
                 </a>
                 <span class="layui-laypage-count">共 1000 条</span>
                 <span class="layui-laypage-limits">
-                    <select lay-ignore="">
+                    <select id="pageSize" lay-ignore="">
                         <option value="10">10 条/页</option>
                         <option value="20">20 条/页</option>
-                        <option value="30" selected="">30 条/页</option>
+                        <option value="30">30 条/页</option>
                         <option value="40">40 条/页</option>
                         <option value="50">50 条/页</option>
                         <option value="60">60 条/页</option>
@@ -64,8 +64,8 @@
                     </select>
                 </span>
                 <span class="layui-laypage-skip">
-                    到第<input type="text" min="1" value="1" class="layui-input">页
-                    <button type="button" class="layui-laypage-btn">确定</button>
+                    到第<input id="pageNumber" type="text" min="1" value="1" class="layui-input">页
+                    <button type="button" class="layui-laypage-btn" onclick="page.build('/v1/user/userManager')">确定</button>
                 </span>
             </div>
         </div>
