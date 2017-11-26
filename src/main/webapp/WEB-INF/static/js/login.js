@@ -33,7 +33,7 @@ var login = {
                 }
             },
             error: function () {
-                dialog.error('请求失败')
+                dialog.error('请求失败');
             }
         });
     },

@@ -9,7 +9,7 @@ import java.io.IOException;
  * @auther ttm
  * @date 2017/11/8
  */
-//@Ignore
+@Ignore
 public class XmlTest {
 
     @Test

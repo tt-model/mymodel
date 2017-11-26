@@ -9,11 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.Random;
+
 /**
  * @auther ttm
  * @date 2017/10/31
  */
-//@Ignore
+@Ignore
 public class UserTest extends SpringTest {
 
     @Autowired
@@ -21,14 +23,17 @@ public class UserTest extends SpringTest {
 
     @Test
     public void userTest() throws Exception {
-        User user = new User();
-        user.setName("admin");
-        user.setPassword(AesEncodeUtil.encryption("tangtaiming123"));
-        String currentTime = DateUtil.fetchCurrentTime();
-        user.setCreateTime(currentTime);
-        user.setUpdateTime(currentTime);
-        userService.userSave(user);
-        System.out.println("ttm | " + user);
+        for (int x = 1; x < 1000; x++) {
+            User user = new User();
+            user.setName("test" + x);
+            user.setPassword(AesEncodeUtil.encryption("tangtaiming123"));
+            String currentTime = DateUtil.fetchCurrentTime();
+            user.setCreateTime(currentTime);
+            user.setUpdateTime(currentTime);
+            userService.userSave(user);
+            System.out.println("ttm | " + user);
+        }
+
     }
 
     @Test

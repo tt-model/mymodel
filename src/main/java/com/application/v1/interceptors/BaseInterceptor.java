@@ -1,9 +1,13 @@
 package com.application.v1.interceptors;
 
 import com.application.v1.BaseParseXml;
+import com.application.v1.library.JsonUtil;
+import com.application.v1.library.Page;
 import com.application.v1.orms.User;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.core.MethodParameter;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -43,7 +47,26 @@ public class BaseInterceptor extends HandlerInterceptorAdapter {
             System.out.println("ttm | " + requestUrl);
             String[] actionNames = StringUtils.split(requestUrl, "/");
             baseParseXml.parseMainXml(actionNames[(actionNames.length - 1)]);
-            modelAndView.addAllObjects(baseParseXml.getXmlMap());
+//            modelAndView.addAllObjects(baseParseXml.getXmlMap());
+//            modelAndView.addObject("method", request.getMethod());
+            modelMap.putAll(baseParseXml.getXmlMap());
+            modelMap.put("method", request.getMethod());
+            //paging
+            String pageNumber = request.getParameter("pageNumber");
+            String pageSize = request.getParameter("pageSize");
+            if (StringUtils.isEmpty(pageNumber)) {
+                pageNumber = "1";
+            }
+            if (StringUtils.isEmpty(pageSize)) {
+                pageSize = "10";
+            }
+            Integer collectionCount = ( Integer ) modelMap.get("collectionCount");
+            if (collectionCount == null) {
+                collectionCount = 0;
+            }
+            Page page = new Page(collectionCount, Integer.valueOf(pageNumber), Integer.valueOf(pageSize));
+            modelMap.put("paging", page);
+            System.out.println("show modelAndView : " + JsonUtil.toJson(modelAndView));
         } else if (modelMap.containsKey("add")) {
 
         } else if (modelMap.containsKey("edit")) {

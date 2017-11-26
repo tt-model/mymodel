@@ -26,6 +26,11 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
 
+    @Override
+    public int userCount() {
+        return Long.valueOf(userDao.count()).intValue();
+    }
+
     /**
      * 分页查询数据
      *
@@ -35,7 +40,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public List<User> userList(int pageNumber, int pageSize) {
-        Page page = userDao.findAll(new PageRequest(pageNumber, pageSize));
+        Page page = userDao.findAll(new PageRequest((pageNumber - 1), pageSize));
         return page.getContent();
     }
 

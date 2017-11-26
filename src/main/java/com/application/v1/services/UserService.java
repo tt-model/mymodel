@@ -13,6 +13,12 @@ import java.util.Map;
 public interface UserService {
 
     /**
+     * 查询数量
+     * @return
+     */
+    public int userCount();
+
+    /**
      * 分页查询数据
      * @param pageNumber
      * @param pageSize

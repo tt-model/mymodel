@@ -10,6 +10,8 @@
     </style>
     <div style="padding: 15px;">
         <#include "main-content/head-breadcrumb.ftl"/>
-        <#include "main-content/head-body.ftl"/>
+        <div id="headBody" class="layui-form layui-border-box layui-table-view">
+            <#include "main-content/head-body.ftl"/>
+        </div>
     </div>
 </div>

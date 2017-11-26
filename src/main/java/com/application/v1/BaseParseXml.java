@@ -1,6 +1,7 @@
 package com.application.v1;
 
 import org.apache.commons.collections.map.HashedMap;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -62,7 +63,10 @@ public class BaseParseXml {
             Element root = document.getRootElement();
             logger.info("root " + root.getName());
             Element header = root.element("headers");
-            header.attributeValue("");
+            String managerUrl = header.attributeValue("manager");
+            if (StringUtils.isEmpty(managerUrl)) {
+                throw new NullPointerException("manager url is null，request!");
+            }
             List<Element> headerColumnList = header.elements("column");
             for (Element element : headerColumnList) {
                 String name = element.attributeValue("name");
@@ -72,7 +76,7 @@ public class BaseParseXml {
                 columnMap.put("title", title);
                 parseXmlList.add(columnMap);
             }
-            xmlMap.put("headers", "");
+            xmlMap.put("managerUrl", managerUrl);
             xmlMap.put("headerTitle", parseXmlList);
             //widths
             List<String> parseWidthList = new ArrayList<>();

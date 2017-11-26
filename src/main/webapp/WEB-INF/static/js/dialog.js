@@ -11,7 +11,6 @@ var dialog = {
             title : '错误提示'
         });
     },
-
     // 成功弹出层
     success : function ( message, url ) {
         layer.open({
@@ -22,7 +21,6 @@ var dialog = {
             }
         });
     },
-
     /**
      * 提示弹出层
      * @param message     提示内容
@@ -36,6 +34,19 @@ var dialog = {
             //go to
             layer.close( index );
         })
+    },
+    /**
+     * 数据加载
+     */
+    load : function() {
+        return layer.load();
+    },
+    /**
+     * 关闭加载
+     * @param index
+     */
+    close : function(index) {
+        layer.close(index);
     }
 }
 

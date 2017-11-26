@@ -2,6 +2,7 @@ package com.application.v1.library;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 分页工具
@@ -33,7 +34,7 @@ public class Page {
     /**
      * 分页栏每页显示数量
      */
-    private int rollPages = 5;
+    private int rollPages = 11;
 
     /**
      * 是否下一页
@@ -67,6 +68,12 @@ public class Page {
      * 数字分页连接
      */
     private List<Integer> linkPages;
+
+    public Page(int totalRows, Map<String, Object> paging) {
+        this(totalRows,
+                Integer.valueOf(paging.get("pageNumber").toString()),
+                Integer.valueOf(paging.get("pageSize").toString()));
+    }
 
     /**
      * 初始化构建分页
