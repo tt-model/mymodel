@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +17,7 @@ import java.util.Map;
  * @date 2017/10/31
  */
 @Controller
-@RequestMapping(value = "/v1/admin")
+@RequestMapping(value = "/v1/text")
 public class HelloContoller {
 
     @Autowired
@@ -28,7 +29,12 @@ public class HelloContoller {
 //        List<User> userList = userDao.findAll();
 //        view.put("colletion", userList);
 //        view.put("total", userList.size());
-        return "/v1/admin/index";
+        return "/v1/test/index";
+    }
+
+    @RequestMapping(value = "/index", method = RequestMethod.POST)
+    public String index(HttpServletRequest request) {
+        return "success";
     }
 
 }
