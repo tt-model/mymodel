@@ -3,6 +3,7 @@ import com.application.v1.daos.TestUserDao;
 import com.application.v1.orms.test.TestOrder;
 import com.application.v1.orms.test.TestUser;
 import org.apache.log4j.Logger;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -13,6 +14,7 @@ import javax.swing.*;
  * @auther ttm
  * @date 2017/12/15
  */
+@Ignore
 public class ManyToOneTest extends SpringTest {
 
     private final static Logger LOG = Logger.getLogger(ManyToOneTest.class);
@@ -45,7 +47,7 @@ public class ManyToOneTest extends SpringTest {
         LOG.info("show data : " + testOrder.getOrderName());
     }
 
-    @Test
+//    @Test
     public void deleteUser() {
         testUserDao.delete(2);
     }

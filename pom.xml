@@ -150,6 +150,13 @@
           <artifactId>annotations</artifactId>
           <version>RELEASE</version>
       </dependency>
+    <!-- xom -->
+    <dependency>
+      <groupId>xom</groupId>
+      <artifactId>xom</artifactId>
+      <version>1.2.5</version>
+    </dependency>
+
 
   </dependencies>
   <build>
