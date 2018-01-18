@@ -1,17 +1,17 @@
 package com.application.v1.controllers;
 
-import com.application.v1.library.Page;
+import com.application.v1.core.MainController;
 import com.application.v1.orms.User;
 import com.application.v1.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-import sun.misc.Request;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author ttm
@@ -19,7 +19,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping(value = "/v1/user")
-public class UserController {
+public class UserController extends MainController {
 
     @Autowired
     public UserService userService;

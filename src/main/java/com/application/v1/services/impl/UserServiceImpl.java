@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -93,5 +94,28 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean userUpdate(User user) {
         return userDao.userUpdate(user);
+    }
+
+    /**
+     * 获取用户数据集合
+     *
+     * @param request 前台请求参数
+     * @return
+     */
+    public List<User> userList(HttpServletRequest request) {
+        String pageNumber = request.getParameter("pageNumber");
+        String pageSize = request.getParameter("pageSize");
+        Integer newPageNumber = 1;
+        Integer newPageSize = 10;
+        if (StringUtils.isNotEmpty(pageNumber) && pageNumber.compareTo("0") > 0) {
+            newPageNumber = Integer.valueOf(pageNumber);
+            newPageNumber = newPageNumber - 1;
+        }
+        if (StringUtils.isNotEmpty(pageSize)) {
+            newPageSize = Integer.valueOf(pageSize);
+        }
+
+        Page<User> page = userDao.findAll(new PageRequest(newPageNumber, newPageSize));
+        return page.getContent();
     }
 }

@@ -3,6 +3,7 @@ package com.application.v1.services;
 import com.application.v1.library.ServiceResponse;
 import com.application.v1.orms.User;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -67,5 +68,6 @@ public interface UserService {
      * @return
      */
     public boolean userUpdate(User user);
+
 
 }

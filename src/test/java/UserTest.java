@@ -1,7 +1,9 @@
 import com.application.v1.library.AesEncodeUtil;
 import com.application.v1.library.DateUtil;
+import com.application.v1.library.JsonUtil;
 import com.application.v1.orms.User;
 import com.application.v1.services.UserService;
+import org.apache.log4j.Logger;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,10 +20,11 @@ import java.util.Random;
 @Ignore
 public class UserTest extends SpringTest {
 
+    private final static Logger LOG = Logger.getLogger(UserTest.class);
+
     @Autowired
     private UserService userService;
 
-    @Test
     public void userTest() throws Exception {
         for (int x = 1; x < 1000; x++) {
             User user = new User();
@@ -30,7 +33,7 @@ public class UserTest extends SpringTest {
             String currentTime = DateUtil.fetchCurrentTime();
             user.setCreateTime(currentTime);
             user.setUpdateTime(currentTime);
-            userService.userSave(user);
+//            userService.userSave(user);
             System.out.println("ttm | " + user);
         }
 
@@ -39,8 +42,7 @@ public class UserTest extends SpringTest {
     @Test
     public void updateTest() {
         User user = userService.userFind(1);
-        user.setName("admin 1");
-        userService.userUpdate(user);
+        LOG.info(JsonUtil.toJson(user));
     }
 
 }

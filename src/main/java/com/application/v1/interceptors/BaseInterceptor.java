@@ -33,6 +33,11 @@ public class BaseInterceptor extends HandlerInterceptorAdapter {
             return false;
         }
 
+        //后缀名称是 manager的请求是管理页面的请求
+        String requestUrl = request.getRequestURI();
+        if (StringUtils.endsWith(requestUrl, "Manager")) {
+
+        }
         return super.preHandle(request, response, handler);
     }
 
@@ -47,8 +52,6 @@ public class BaseInterceptor extends HandlerInterceptorAdapter {
             System.out.println("ttm | " + requestUrl);
             String[] actionNames = StringUtils.split(requestUrl, "/");
             baseParseXml.parseMainXml(actionNames[(actionNames.length - 1)]);
-//            modelAndView.addAllObjects(baseParseXml.getXmlMap());
-//            modelAndView.addObject("method", request.getMethod());
             modelMap.putAll(baseParseXml.getXmlMap());
             modelMap.put("method", request.getMethod());
             //paging

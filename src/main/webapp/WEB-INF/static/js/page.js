@@ -23,7 +23,6 @@ var page = {
             data: paging,
             success: function( response ) {
                 dialog.close(index);
-                //TODO 成功结果还没有进行编写
                 $("#headBody").html(response);
             },
             error: function() {
