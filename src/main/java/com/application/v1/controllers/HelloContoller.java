@@ -2,13 +2,13 @@ package com.application.v1.controllers;
 
 import com.application.v1.daos.UserDao;
 import com.application.v1.orms.User;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +19,8 @@ import java.util.Map;
 @Controller
 @RequestMapping(value = "/v1/text")
 public class HelloContoller {
+
+    private static final Logger logger = Logger.getLogger(HelloContoller.class);
 
     @Autowired
     private UserDao userDao;
@@ -33,7 +35,16 @@ public class HelloContoller {
     }
 
     @RequestMapping(value = "/index", method = RequestMethod.POST)
+    @ResponseBody
     public String index(HttpServletRequest request) {
+        System.out.println("ttm : " + request.getParameterMap());
+        //search
+        Enumeration requestParams = request.getParameterNames();
+        for (;requestParams.hasMoreElements();) {
+            String params = ( String ) requestParams.nextElement();
+            String value = request.getParameter(params);
+            logger.info("show request data: "+ params + " " + value);
+        }
         return "success";
     }
 

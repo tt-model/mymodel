@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<main class="com.application.v1.orms.Role">
+    <bread-title title="role.manager" url="/v1/role/roleManager"/>
+    <add-button title="add.role.data" url="/v1/role/addRole" />
+    <headers url="/v1/role/roleManager">
+        <!-- name 列对应属性名 / title 列标题名称  -->
+        <column name="id" title="c.id" />
+        <column name="name" title="c.role.name" />
+        <column name="status" title="c.status.name" />
+        <column name="createTime" title="c.create.time.name" />
+        <column name="action" title="c.action" />
+    </headers>
+    <widths>
+        <width value="100" />
+        <width value="100" />
+        <width value="100" />
+        <width value="" />
+        <width value="100" />
+    </widths>
+</main>

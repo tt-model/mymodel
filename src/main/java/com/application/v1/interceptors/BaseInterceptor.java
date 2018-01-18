@@ -13,6 +13,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Enumeration;
 import java.util.Map;
 
 /**
@@ -70,6 +71,7 @@ public class BaseInterceptor extends HandlerInterceptorAdapter {
             Page page = new Page(collectionCount, Integer.valueOf(pageNumber), Integer.valueOf(pageSize));
             modelMap.put("paging", page);
             System.out.println("show modelAndView : " + JsonUtil.toJson(modelAndView));
+            request.getSession();
         } else if (modelMap.containsKey("add")) {
 
         } else if (modelMap.containsKey("edit")) {
