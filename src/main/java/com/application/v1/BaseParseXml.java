@@ -1,5 +1,6 @@
 package com.application.v1;
 
+import com.application.v1.library.JsonUtil;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -63,7 +64,7 @@ public class BaseParseXml {
             Element root = document.getRootElement();
             logger.info("root " + root.getName());
             Element header = root.element("headers");
-            String managerUrl = header.attributeValue("manager");
+            String managerUrl = header.attributeValue("url");
             if (StringUtils.isEmpty(managerUrl)) {
                 throw new NullPointerException("manager url is null，request!");
             }
@@ -79,15 +80,31 @@ public class BaseParseXml {
             xmlMap.put("managerUrl", managerUrl);
             xmlMap.put("headerTitle", parseXmlList);
             //widths
-            List<String> parseWidthList = new ArrayList<>();
             Element widths = root.element("widths");
+            List<String> parseWidthList = new ArrayList<>();
             List<Element> widthColumnList = widths.elements("width");
             for (Element element : widthColumnList) {
                 String width = element.attributeValue("value");
                 parseWidthList.add(width);
             }
             xmlMap.put("widthTitle", parseWidthList);
-            System.out.println("ttm | " + xmlMap.toString());
+            //bread 功能名称
+            Element bread = root.element("bread-title");
+            String breadTitle = bread.attributeValue("title");
+            String breadUrl = bread.attributeValue("url");
+            Map<String, Object> parseBreadTitle = new HashMap<>();
+            parseBreadTitle.put("breadTitle", breadTitle);
+            parseBreadTitle.put("breadUrl", breadUrl);
+            xmlMap.put("breadTitle", parseBreadTitle);
+            //新增按钮
+            Element addButton = root.element("add-button");
+            String buttonName = addButton.attributeValue("title");
+            String buttonUrl = addButton.attributeValue("url");
+            Map<String, Object> parseAddButton = new HashMap<>();
+            parseAddButton.put("buttonName", buttonName);
+            parseAddButton.put("buttonUrl", buttonUrl);
+            xmlMap.put("addButton", parseAddButton);
+            System.out.println("ttm | " + JsonUtil.toJson(xmlMap));
         } else {
             logger.warn(path + " file is null");
         }

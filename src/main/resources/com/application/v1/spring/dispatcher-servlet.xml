@@ -16,8 +16,6 @@
 
     <context:component-scan base-package="com.application.v1.controllers" />
 
-    <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/>
-
     <bean id="messageSource"
           class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basename" value="package"></property>
@@ -55,6 +53,7 @@
 
     <mvc:interceptors>
         <mvc:interceptor>
+            <mvc:mapping path="/v1/role/**"/>
             <mvc:mapping path="/v1/admin/**"/>
             <mvc:mapping path="/v1/user/**"/>
             <mvc:exclude-mapping path="/v1/admin/login" />

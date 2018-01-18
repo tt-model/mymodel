@@ -5,8 +5,8 @@
             <li class="layui-nav-item layui-nav-itemed">
                 <a class="" href="javascript:;">所有功能</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="javascript:;">用户管理</a></dd>
-                    <dd><a href="javascript:;">列表二</a></dd>
+                    <dd><a href="/v1/user/userManager">用户管理</a></dd>
+                    <dd><a href="/v1/role/roleManager">角色管理</a></dd>
                     <dd><a href="javascript:;">列表三</a></dd>
                     <dd><a href="">超链接</a></dd>
                 </dl>
