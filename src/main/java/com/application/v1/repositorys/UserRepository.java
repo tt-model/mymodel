@@ -13,4 +13,6 @@ public interface UserRepository {
 
     public boolean userUpdate(User user);
 
+    public void userShow();
+
 }

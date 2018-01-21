@@ -70,7 +70,7 @@
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
 
-    <jpa:repositories base-package="com.application.v1.daos,com.application.v1.daos.impl"
+    <jpa:repositories base-package="com.application.v1.daos"
                       transaction-manager-ref="jpaTransactionManager"
                       entity-manager-factory-ref="entityManagerFactory" />
     <tx:annotation-driven transaction-manager="jpaTransactionManager" proxy-target-class="true" />

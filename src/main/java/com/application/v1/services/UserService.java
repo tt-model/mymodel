@@ -59,7 +59,7 @@ public interface UserService {
      * @param id
      * @return
      */
-    public User userFind(Integer id);
+    public User userFind(Long id);
 
     /**
      * 用戶修改
@@ -67,5 +67,7 @@ public interface UserService {
      * @return
      */
     public boolean userUpdate(User user);
+
+    public void userShow();
 
 }

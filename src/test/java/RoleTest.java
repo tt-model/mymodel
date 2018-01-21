@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @auther ttm
  * @date 2017/11/21
  */
-@Ignore
+//@Ignore
 public class RoleTest extends SpringTest {
 
     @Autowired
@@ -18,12 +18,10 @@ public class RoleTest extends SpringTest {
     @Test
     public void saveTest() {
         Role role = new Role();
-        role.setName("总监");
-        role.setParentId(0);
-        role.setStatus(1);         //默认关闭
-        String currentTile = DateUtil.fetchCurrentTime();
-        role.setCreateTime(currentTile);
-        role.setUpdateTime(currentTile);
+        role.setRoleName("总监");
+        role.setRemark("公司总监");
+        role.setDeptId(1L);
+        role.setCreateTime(DateUtil.fetchCurrentTime());
         roleService.roleSave(role);
     }
 

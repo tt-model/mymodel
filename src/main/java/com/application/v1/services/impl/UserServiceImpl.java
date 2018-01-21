@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ServiceResponse userOne(User user) {
-        String userName = user.getName();
+        String userName = user.getUserName();
         String password = user.getPassword();
         if (StringUtils.isEmpty(userName)) {
             return ServiceResponseUtil.fail("用户名不能为空!");
@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        User fetchUser = userDao.findUserByNameAndPassword(userName, encodePassword);
+        User fetchUser = userDao.findUserByUserNameAndPassword(userName, encodePassword);
         if (fetchUser == null) {
             return ServiceResponseUtil.fail("用户名或者密码不正确!");
         } else {
@@ -76,22 +76,27 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User userOne(String name, String password) {
-        return userDao.findUserByNameAndPassword(name, password);
+        return userDao.findUserByUserNameAndPassword(name, password);
     }
 
     @Override
     public boolean userSave(User user) {
         User saveUser = userDao.save(user);
-        return saveUser.getId() > 0 ? true : false;
+        return saveUser.getUserId() > 0 ? true : false;
     }
 
     @Override
-    public User userFind(Integer id) {
+    public User userFind(Long id) {
         return userDao.findOne(id);
     }
 
     @Override
     public boolean userUpdate(User user) {
         return userDao.userUpdate(user);
+    }
+
+    @Override
+    public void userShow() {
+        userDao.userShow();
     }
 }

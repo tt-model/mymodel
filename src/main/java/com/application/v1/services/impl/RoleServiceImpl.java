@@ -23,7 +23,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public boolean roleSave(Role role) {
         Role saveRole = roleDao.save(role);
-        return saveRole.getId() > 0 ? true : false;
+        return saveRole.getRoleId() > 0 ? true : false;
     }
 
     @Override

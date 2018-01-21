@@ -28,4 +28,9 @@ public class UserDaoImpl implements UserRepository {
         }
         return true;
     }
+
+    @Override
+    public void userShow() {
+        System.out.println("user show!");
+    }
 }
