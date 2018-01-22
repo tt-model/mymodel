@@ -9,13 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @auther ttm
  * @date 2017/11/21
  */
-//@Ignore
 public class RoleTest extends SpringTest {
 
     @Autowired
     private RoleService roleService;
 
-    @Test
+//    @Test
     public void saveTest() {
         Role role = new Role();
         role.setRoleName("总监");

@@ -69,6 +69,7 @@ public class Menu {
     /**
      * ztree属性
      */
+    @Transient
     private Boolean open;
 
     @Transient

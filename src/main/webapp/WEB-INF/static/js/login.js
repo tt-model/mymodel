@@ -16,7 +16,7 @@ var login = {
         if (login.empty(password)) {
             return dialog.error('密码不能为空!');
         }
-        params['name'] = userName;
+        params['userName'] = userName;
         params['password'] = password;
         //console.info('data show : ' + JSON.stringify(params));
         $.ajax({
@@ -29,7 +29,7 @@ var login = {
                     return dialog.error( response.msg );
                 }
                 if (response.code == 200) {
-                    return dialog.success( response.msg, '/v1/admin/index' );
+                    return dialog.success( response.msg, '/v1/user/userManager' );
                 }
             },
             error: function () {

@@ -1,18 +1,9 @@
-import com.application.v1.library.AesEncodeUtil;
 import com.application.v1.library.DateUtil;
 import com.application.v1.library.ShiroUtil;
 import com.application.v1.orms.User;
 import com.application.v1.services.UserService;
-import com.tomtop.system.libraries.util.Dumper;
 import org.apache.commons.lang.RandomStringUtils;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import java.util.Random;
 
 /**
  * @auther ttm
@@ -23,7 +14,7 @@ public class UserTest extends SpringTest {
     @Autowired
     private UserService userService;
 
-    @Test
+//    @Test
     public void userTest() {
         User user = new User();
         user.setUserName("tangtaiming");
@@ -36,7 +27,7 @@ public class UserTest extends SpringTest {
         user.setMobile("15211636823");
         user.setStatus(1);
         user.setCreateTime(DateUtil.fetchCurrentTime());
-        Dumper.dump(user);
+//        Dumper.dump(user);
         userService.userSave(user);
     }
 

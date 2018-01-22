@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        User fetchUser = userDao.findUserByUserNameAndPassword(userName, encodePassword);
+        User fetchUser = userDao.findUserByUserNameAndPassword(userName, password);
         if (fetchUser == null) {
             return ServiceResponseUtil.fail("用户名或者密码不正确!");
         } else {

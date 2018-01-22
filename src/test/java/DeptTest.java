@@ -8,7 +8,7 @@ public class DeptTest extends SpringTest {
     @Autowired
     private DeptService deptService;
 
-    @Test
+//    @Test
     public void deptSaveTest() {
         Dept dept = new Dept();
         dept.setName("商品部");
