@@ -4,12 +4,20 @@
     <add-button title="add.user.data" url="/v1/user/addUser" />
     <headers url="/v1/user/userManager">
         <!-- name 列对应属性名 / title 列标题名称  -->
-        <column name="id" title="c.id" />
-        <column name="name" title="c.name" />
+        <column name="userId" title="c.id" />
+        <column name="userName" title="c.name" />
+        <column name="deptName" title="c.dept.name" />
+        <column name="email" title="c.email" />
+        <column name="mobile" title="c.mobile" />
+        <column name="createTime" title="c.create.time" />
         <column name="action" title="c.action" />
     </headers>
     <widths>
         <width value="100" />
+        <width value="" />
+        <width value="" />
+        <width value="" />
+        <width value="" />
         <width value="" />
         <width value="100" />
     </widths>

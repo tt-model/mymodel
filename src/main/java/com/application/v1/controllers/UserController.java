@@ -30,7 +30,7 @@ public class UserController extends MainController {
      */
     @RequestMapping(value = "/userManager", method = {RequestMethod.GET})
     public ModelAndView userManagerGet() {
-        return userManager(0, 0);
+        return userManager(0, 20);
     }
 
     @RequestMapping(value = "/userManager", method = {RequestMethod.POST})

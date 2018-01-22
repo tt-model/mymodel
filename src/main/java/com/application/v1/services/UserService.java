@@ -3,7 +3,6 @@ package com.application.v1.services;
 import com.application.v1.library.ServiceResponse;
 import com.application.v1.orms.User;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -60,7 +59,7 @@ public interface UserService {
      * @param id
      * @return
      */
-    public User userFind(Integer id);
+    public User userFind(Long id);
 
     /**
      * 用戶修改
@@ -69,5 +68,6 @@ public interface UserService {
      */
     public boolean userUpdate(User user);
 
+    public void userShow();
 
 }

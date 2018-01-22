@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @Ignore
 public class DateTest {
 
-    @Test
+//    @Test
     public void dateTest() {
         System.out.println("ttm | " + DateUtil.fetchCurrentTime());
     }

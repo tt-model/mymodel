@@ -1,6 +1,8 @@
 package com.application.v1.orms;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -9,39 +11,91 @@ import java.util.Set;
  * @date 2017/10/31
  */
 @Entity
-@Table(name = "mm_user")
-public class User {
+@Table(name = "tt_user")
+public class User implements Serializable {
 
+    /**
+     * 用户ID
+     */
     @Id
-    @GeneratedValue
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
+    private Long userId;
 
-    @Column(name = "name")
-    private String name;
+    /**
+     * 用户名
+     */
+    @Column(name = "username")
+    private String userName;
 
+    /**
+     * 密码
+     */
     @Column(name = "password")
     private String password;
 
+    /**
+     * 盐
+     */
+    @Column(name = "salt")
+    private String salt;
+
+    /**
+     * 邮箱
+     */
+    @Column(name = "email")
+    private String email;
+
+    /**
+     * 手机号
+     */
+    @Column(name = "mobile")
+    private String mobile;
+
+    /**
+     * 状态  0：禁用   1：正常
+     */
+    @Column(name = "status")
+    private Integer status;
+
+    /**
+     * 角色ID列表
+     */
+    @Transient
+    private List<Long> roleIdList;
+
+    /**
+     * 创建时间
+     */
     @Column(name = "create_time")
     private String createTime;
 
-    @Column(name = "update_time")
-    private String updateTime;
+    /**
+     * 部门ID
+     */
+    @Column(name = "dept_id")
+    private Long deptId;
 
-    public int getId() {
-        return id;
+    /**
+     * 部门名称
+     */
+    @Transient
+    private String deptName;
+
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public String getName() {
-        return name;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {
@@ -52,6 +106,46 @@ public class User {
         this.password = password;
     }
 
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public List<Long> getRoleIdList() {
+        return roleIdList;
+    }
+
+    public void setRoleIdList(List<Long> roleIdList) {
+        this.roleIdList = roleIdList;
+    }
+
     public String getCreateTime() {
         return createTime;
     }
@@ -60,22 +154,19 @@ public class User {
         this.createTime = createTime;
     }
 
-    public String getUpdateTime() {
-        return updateTime;
+    public Long getDeptId() {
+        return deptId;
     }
 
-    public void setUpdateTime(String updateTime) {
-        this.updateTime = updateTime;
+    public void setDeptId(Long deptId) {
+        this.deptId = deptId;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                ", createTime='" + createTime + '\'' +
-                ", updateTime='" + updateTime + '\'' +
-                '}';
+    public String getDeptName() {
+        return deptName;
+    }
+
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
     }
 }

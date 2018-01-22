@@ -1,9 +1,9 @@
 package com.application.v1.repositorys;
 
 import com.application.v1.orms.User;
-
-import java.util.List;
-import java.util.Map;
+import org.omg.CORBA.INTERNAL;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Component;
 
 /**
  * @auther ttm
@@ -13,12 +13,6 @@ public interface UserRepository {
 
     public boolean userUpdate(User user);
 
-    public List<User> userList(Map<String, Object> query, Map<String, Object> sort, Map<String, Object> paging);
-
-    public List<User> userList(Map<String, Object> query, Map<String, Object> sort);
-
-    public List<User> userList(Map<String, Object> query);
-
-    public User userOne(Map<String, Object> query);
+    public void userShow();
 
 }

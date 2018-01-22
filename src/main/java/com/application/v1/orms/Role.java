@@ -1,6 +1,8 @@
 package com.application.v1.orms;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * 角色
@@ -8,56 +10,107 @@ import javax.persistence.*;
  * @data 2017/11/21
  */
 @Entity
-@Table(name = "mm_role")
-public class Role {
+@Table(name = "tt_role")
+public class Role implements Serializable {
 
+    /**
+     * 角色ID
+     */
     @Id
     @GeneratedValue
-    private int id;
+    @Column(name = "role_id")
+    private Long roleId;
 
-    private String name;
+    /**
+     * 角色ID
+     */
+    @Column(name = "role_name")
+    private String roleName;
 
-    @Column(name = "parent_id")
-    private int parentId;
+    /**
+     * 备注
+     */
+    @Column(name = "remark")
+    private String remark;
 
-    private int status;
+    /**
+     * 部门ID
+     */
+    @Column(name = "dept_id")
+    private Long deptId;
 
+    /**
+     * 部门名称
+     */
+    @Transient
+    private String deptName;
+
+    @Transient
+    private List<Long> menuIdList;
+
+    @Transient
+    private List<Long> deptIdList;
+
+    /**
+     * 创建时间
+     */
     @Column(name = "create_time")
     private String createTime;
 
-    @Column(name = "update_time")
-    private String updateTime;
-
-    public int getId() {
-        return id;
+    public Long getRoleId() {
+        return roleId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
     }
 
-    public String getName() {
-        return name;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
-    public int getParentId() {
-        return parentId;
+    public String getRemark() {
+        return remark;
     }
 
-    public void setParentId(int parentId) {
-        this.parentId = parentId;
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 
-    public int getStatus() {
-        return status;
+    public Long getDeptId() {
+        return deptId;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setDeptId(Long deptId) {
+        this.deptId = deptId;
+    }
+
+    public String getDeptName() {
+        return deptName;
+    }
+
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
+    }
+
+    public List<Long> getMenuIdList() {
+        return menuIdList;
+    }
+
+    public void setMenuIdList(List<Long> menuIdList) {
+        this.menuIdList = menuIdList;
+    }
+
+    public List<Long> getDeptIdList() {
+        return deptIdList;
+    }
+
+    public void setDeptIdList(List<Long> deptIdList) {
+        this.deptIdList = deptIdList;
     }
 
     public String getCreateTime() {
@@ -66,25 +119,5 @@ public class Role {
 
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
-    }
-
-    public String getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(String updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    @Override
-    public String toString() {
-        return "Role{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", parentId=" + parentId +
-                ", status=" + status +
-                ", createTime='" + createTime + '\'' +
-                ", updateTime='" + updateTime + '\'' +
-                '}';
     }
 }

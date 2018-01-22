@@ -14,7 +14,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -52,7 +51,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ServiceResponse userOne(User user) {
-        String userName = user.getName();
+        String userName = user.getUserName();
         String password = user.getPassword();
         if (StringUtils.isEmpty(userName)) {
             return ServiceResponseUtil.fail("用户名不能为空!");
@@ -67,7 +66,7 @@ public class UserServiceImpl implements UserService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        User fetchUser = userDao.findUserByNameAndPassword(userName, encodePassword);
+        User fetchUser = userDao.findUserByUserNameAndPassword(userName, password);
         if (fetchUser == null) {
             return ServiceResponseUtil.fail("用户名或者密码不正确!");
         } else {
@@ -77,17 +76,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User userOne(String name, String password) {
-        return userDao.findUserByNameAndPassword(name, password);
+        return userDao.findUserByUserNameAndPassword(name, password);
     }
 
     @Override
     public boolean userSave(User user) {
         User saveUser = userDao.save(user);
-        return saveUser.getId() > 0 ? true : false;
+        return saveUser.getUserId() > 0 ? true : false;
     }
 
     @Override
-    public User userFind(Integer id) {
+    public User userFind(Long id) {
         return userDao.findOne(id);
     }
 
@@ -96,26 +95,8 @@ public class UserServiceImpl implements UserService {
         return userDao.userUpdate(user);
     }
 
-    /**
-     * 获取用户数据集合
-     *
-     * @param request 前台请求参数
-     * @return
-     */
-    public List<User> userList(HttpServletRequest request) {
-        String pageNumber = request.getParameter("pageNumber");
-        String pageSize = request.getParameter("pageSize");
-        Integer newPageNumber = 1;
-        Integer newPageSize = 10;
-        if (StringUtils.isNotEmpty(pageNumber) && pageNumber.compareTo("0") > 0) {
-            newPageNumber = Integer.valueOf(pageNumber);
-            newPageNumber = newPageNumber - 1;
-        }
-        if (StringUtils.isNotEmpty(pageSize)) {
-            newPageSize = Integer.valueOf(pageSize);
-        }
-
-        Page<User> page = userDao.findAll(new PageRequest(newPageNumber, newPageSize));
-        return page.getContent();
+    @Override
+    public void userShow() {
+        userDao.userShow();
     }
 }

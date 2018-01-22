@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @auther ttm
  * @date 2017/11/21
  */
-public interface RoleDao extends JpaRepository<Role, Integer> {
+public interface RoleDao extends JpaRepository<Role, Long> {
 
 }
