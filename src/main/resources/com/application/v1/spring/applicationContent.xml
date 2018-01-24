@@ -10,7 +10,6 @@
     <context:component-scan base-package="com.application.v1.repositorys" />
     <context:component-scan base-package="com.application.v1.services" />
 
-
     <!-- FreeMarker模板路径 -->
     <bean id="freemarkerConfig"
           class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
@@ -38,5 +37,7 @@
         </property>
     </bean>
     <bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape" />
+
+    <import resource="hibernate.xml" />
 
 </beans>

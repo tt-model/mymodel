@@ -6,7 +6,7 @@
         <!-- name 列对应属性名 / title 列标题名称  -->
         <column name="userId" title="c.id" />
         <column name="userName" title="c.name" />
-        <column name="deptName" title="c.dept.name" />
+        <column name="deptId" title="c.dept.name" />
         <column name="email" title="c.email" />
         <column name="mobile" title="c.mobile" />
         <column name="createTime" title="c.create.time" />
@@ -21,4 +21,18 @@
         <width value="" />
         <width value="100" />
     </widths>
+    <search>
+        <column name="userId" type="text" />
+        <column name="userName" type="text" />
+        <column name="deptId" type="DeptNameSelect" />
+        <column name="email" type="text" />
+        <column name="mobile" type="text" />
+        <column name="createTime" type="text" />
+        <column name="action" type="" />
+    </search>
+    <collections>
+        <collection>
+
+        </collection>
+    </collections>
 </main>
