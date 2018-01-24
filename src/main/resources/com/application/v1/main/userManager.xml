@@ -30,9 +30,4 @@
         <column name="createTime" type="text" />
         <column name="action" type="" />
     </search>
-    <collections>
-        <collection>
-
-        </collection>
-    </collections>
 </main>
