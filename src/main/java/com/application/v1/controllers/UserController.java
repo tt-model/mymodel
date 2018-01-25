@@ -5,6 +5,7 @@ import com.application.v1.orms.User;
 import com.application.v1.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import sun.misc.Request;
@@ -19,7 +20,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping(value = "/v1/user")
-public class UserController {
+public class UserController extends BaseContoller {
 
     @Autowired
     public UserService userService;
@@ -30,31 +31,25 @@ public class UserController {
      */
     @RequestMapping(value = "/userManager", method = {RequestMethod.GET})
     public ModelAndView userManagerGet() {
-        return userManager(0, 20);
+        List<User> userList = userService.userList(getPageNumber(), getPageSize());
+        int userCount = userService.userCount();
+        return manager(getPageNumber(), getPageSize(), userList, userCount);
     }
 
     @RequestMapping(value = "/userManager", method = {RequestMethod.POST})
     public ModelAndView userManagerPost(HttpServletRequest request) {
         String pageNumber = request.getParameter("pageNumber");
         String pageSize = request.getParameter("pageSize");
-        return userManager(Integer.parseInt(pageNumber), Integer.parseInt(pageSize));
-    }
-
-    private ModelAndView userManager(int pageNumber, int pageSize) {
-        ModelAndView view = new ModelAndView();
-        if (pageNumber <= 0) {
-            pageNumber = 1;
+        try {
+            Assert.isNull(pageNumber, "page number is null!");
+            Assert.isNull(pageSize, "page siage is null");
+            List<User> userList = userService.userList(Integer.valueOf(pageNumber), Integer.valueOf(pageSize));
+            int userCount = userService.userCount();
+            return manager(Integer.valueOf(pageNumber), Integer.valueOf(pageSize), userList, userCount);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        if (pageSize <= 0) {
-            pageSize = 10;
-        }
-        List<User> userList = userService.userList(pageNumber, pageSize);
-        int userCount = userService.userCount();
-        view.addObject("main", "true");
-        view.addObject("collection", userList);
-        view.addObject("collectionCount", userCount);
-        view.setViewName("/v1/base/v1-main-content");
-        return view;
+        return new ModelAndView();
     }
 
 }

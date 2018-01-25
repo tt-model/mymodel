@@ -10,4 +10,8 @@ public interface DeptService {
 
     public List<Dept> deptListByAll();
 
+    public List<Dept> deptList(int pageNumber, int pageSize);
+
+    public int deptCount();
+
 }

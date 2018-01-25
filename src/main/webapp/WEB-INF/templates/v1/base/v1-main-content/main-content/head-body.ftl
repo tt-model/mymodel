@@ -26,12 +26,17 @@
                                     <#assign searchNameValue=searchRow["name"] />
                                     <#assign searchTypeValue=searchRow["type"] />
                                     <#if searchNameValue==name>
+                                        <#assign rowNum=row[name] />
                                         <#if searchTypeValue=="select">
                                             <#assign searchOptionValue=searchRow["option"] />
-                                            ${searchOptionValue[row[name]?string]}
+                                            <#if searchOptionValue[rowNum?string]??>
+                                                ${searchOptionValue[rowNum?string]}
+                                                <#else>
+                                                ${rowNum}
+                                            </#if>
                                         </#if>
                                         <#if searchTypeValue=="text">
-                                            ${row[name]?string}
+                                            ${rowNum}
                                         </#if>
                                         <#break />
                                     </#if>

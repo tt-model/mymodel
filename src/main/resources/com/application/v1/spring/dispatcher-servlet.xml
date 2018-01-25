@@ -56,6 +56,7 @@
             <mvc:mapping path="/v1/role/**"/>
             <mvc:mapping path="/v1/admin/**"/>
             <mvc:mapping path="/v1/user/**"/>
+            <mvc:mapping path="/v1/dept/**"/>
             <mvc:exclude-mapping path="/v1/admin/login" />
             <mvc:exclude-mapping path="/v1/admin/loginOut" />
             <bean class="com.application.v1.interceptors.BaseInterceptor"></bean>
