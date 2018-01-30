@@ -27,27 +27,11 @@ public class UserController extends BaseContoller {
      * 用户管理页面
      * @return
      */
-    @RequestMapping(value = "/userManager", method = {RequestMethod.GET})
+    @RequestMapping(value = "/userManager", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView userManagerGet() {
         List<User> userList = userService.userList(getPageNumber(), getPageSize());
         int userCount = userService.userCount();
         return manager(getPageNumber(), getPageSize(), userList, userCount);
-    }
-
-    @RequestMapping(value = "/userManager", method = {RequestMethod.POST})
-    public ModelAndView userManagerPost(HttpServletRequest request) {
-        String pageNumber = request.getParameter("pageNumber");
-        String pageSize = request.getParameter("pageSize");
-        try {
-            Assert.isNull(pageNumber, "page number is null!");
-            Assert.isNull(pageSize, "page siage is null");
-            List<User> userList = userService.userList(Integer.valueOf(pageNumber), Integer.valueOf(pageSize));
-            int userCount = userService.userCount();
-            return manager(Integer.valueOf(pageNumber), Integer.valueOf(pageSize), userList, userCount);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return new ModelAndView();
     }
 
 }

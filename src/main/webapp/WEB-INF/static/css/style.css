@@ -1,0 +1,38 @@
+.layui-form-item .layui-input-inline {
+    width: 390px;
+}
+.layui-table-view .layui-table td {
+    padding: 3px 15px;
+}
+.layui-table-view .layui-table th {
+    padding: 9px 15px;
+}
+.layui-table-view .layui-table {
+    width:100%;
+}
+.layui-input,.layui-select,.layui-textarea {
+    height: 28px;
+}
+.layui-date-label {
+    display: block;
+    line-height: 28px;
+    text-align: center;
+}
+.layui-date-row:first-child {
+    margin:0px 0px 5px 0px;
+}
+.layui-form-select dl {
+    top:inherit;
+}
+.layui-table .layui-col-top {
+    border-top: 0px
+}
+.layui-table .layui-col-bottom {
+    border-bottom: 0px
+}
+.layui-table-view {
+    overflow:inherit;
+}
+.layui-table-body {
+    overflow:inherit;
+}

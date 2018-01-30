@@ -8,8 +8,35 @@
         <thead>
             <tr>
             <#list headerTitle as head>
-                <th>
-                    <div class="layui-table-cell"><@s.messageText code="${head['title']}" text="${head['title']}"/></div>
+                <th class="layui-col-bottom">
+                    <div class="layui-table-cell">
+                        <b><@s.messageText code="${head['title']}" text="${head['title']}"/></b>
+                    </div>
+                </th>
+            </#list>
+            </tr>
+            <tr id="model-search">
+            <#list headerTitle as head>
+                <th class="layui-col-top">
+                    <div class="layui-row layui-date-row">
+                        <#list search as searchRow>
+                            <#assign searchNameValue=searchRow["name"] />
+                            <#assign searchTypeValue=searchRow["type"] />
+                            <#if searchNameValue==head['name']>
+                                <#--- 文本 --->
+                                <#if searchTypeValue=='text'>
+                                    <input type="text" name="text" class="layui-input">
+                                </#if>
+                                <#--- 选择 --->
+                                <#if searchTypeValue=='select'>
+                                    <#assign searchOptionValue=searchRow["option"] />
+                                    <@s.formSingleSelect searchNameValue searchNameValue searchOptionValue 0 'lay-search' />
+                                </#if>
+                                <#break>
+                            </#if>
+                        </#list>
+
+                    </div>
                 </th>
             </#list>
             </tr>

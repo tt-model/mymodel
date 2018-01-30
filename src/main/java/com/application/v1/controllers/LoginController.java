@@ -23,7 +23,6 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping(value = "/v1/admin")
-@SessionAttributes(value = {"loginUser"})
 public class LoginController {
 
     private final static Logger LOG = Logger.getLogger(LoginController.class);
@@ -37,7 +36,7 @@ public class LoginController {
      */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Map<String, Object> view) {
-        User user = ( User ) view.get("loginUser");
+        User user = ShiroUtils.getUser();
         if (user == null) {
             return "/v1/admin/user/login";
         }
@@ -55,16 +54,10 @@ public class LoginController {
 
         UsernamePasswordToken token = new UsernamePasswordToken(user.getUserName(), user.getPassword());
         try {
-            ShiroUtils.getSecurity().login(token);
+            ShiroUtils.getSubject().login(token);
         } catch (UnknownAccountException e) {
             LOG.error("验证错误");
         }
-
-//        ServiceResponse response = userService.userOne(user);
-//        if (response.getCode() == 200) {
-//            view.addObject("loginUser", response.getResult());
-//        }
-        view.addObject("loginUser", user);
         view.addObject("response", JsonUtil.toJson(ServiceResponseUtil.success()));
         view.setViewName("/v1/base/response");
         return view;
@@ -76,7 +69,9 @@ public class LoginController {
      */
     @RequestMapping(value = "/loginOut", method = RequestMethod.GET)
     public String loginOut() {
-        ShiroUtil.logout();
+        if (ShiroUtils.isLogin()) {
+            ShiroUtils.logout();
+        }
         return "/v1/admin/user/login";
     }
 

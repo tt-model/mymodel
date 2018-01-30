@@ -18,11 +18,11 @@ public class DeptController extends BaseContoller {
     @Autowired
     private DeptService deptService;
 
-    @RequestMapping(value = "/deptManager", method = RequestMethod.GET)
-   public ModelAndView deptManagerGet() {
+    @RequestMapping(value = "/deptManager", method = {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView deptManagerGet() {
         List<Dept> deptList = deptService.deptList(getPageNumber(), getPageSize());
         int deptCount = deptService.deptCount();
         return manager(getPageNumber(), getPageSize(), deptList, deptCount);
-   }
+    }
 
 }

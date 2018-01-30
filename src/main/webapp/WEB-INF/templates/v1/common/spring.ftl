@@ -128,6 +128,13 @@
     </#if>
 </#macro>
 
+<#macro mybind isSelected>
+    <#if isSelected??>
+        <#assign status = isSelected>
+        <#assign stringStatusValue = isSelected>
+    </#if>
+</#macro>
+
 <#--
  * bindEscaped
  *
@@ -230,6 +237,22 @@
         </#if>
     </select>
 </#macro>
+
+<#macro formSingleSelect id name options selectId attributes="">
+    <@mybind selectId/>
+    <select id="${id}" name="${name}" ${attributes}>
+        <#if options?is_hash>
+            <#list options?keys as value>
+            <option value="${value?html}"<@checkSelected value/>>${options[value]?html}</option>
+            </#list>
+        <#else>
+            <#list options as value>
+            <option value="${value?html}"<@checkSelected value/>>${value?html}</option>
+            </#list>
+        </#if>
+    </select>
+</#macro>
+
 
 <#--
  * formMultiSelect
