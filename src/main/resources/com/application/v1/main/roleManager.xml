@@ -4,10 +4,11 @@
     <add-button title="add.role.data" url="/v1/role/addRole" />
     <headers url="/v1/role/roleManager">
         <!-- name 列对应属性名 / title 列标题名称  -->
-        <column name="id" title="c.id" />
-        <column name="name" title="c.role.name" />
-        <column name="status" title="c.status.name" />
-        <column name="createTime" title="c.create.time.name" />
+        <column name="roleId" title="c.id" />
+        <column name="roleName" title="c.role.name" />
+        <column name="remark" title="c.remark.name" />
+        <column name="deptId" title="c.dept.name" />
+        <column name="createTime" title="c.create.time" />
         <column name="action" title="c.action" />
     </headers>
     <widths>
@@ -15,6 +16,15 @@
         <width value="100" />
         <width value="100" />
         <width value="" />
+        <width value="" />
         <width value="100" />
     </widths>
+    <search>
+        <column name="roleId" type="text" />
+        <column name="roleName" type="text" />
+        <column name="remark" type="text" />
+        <column name="deptId" type="DeptNameSelect" />
+        <column name="createTime" type="text" />
+        <column name="action" type="" />
+    </search>
 </main>

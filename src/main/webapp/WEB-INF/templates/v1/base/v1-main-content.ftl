@@ -1,4 +1,4 @@
-<#if method="GET">
+<#if method?? && method="GET">
     <#include "head.ftl"/>
         <body class="layui-layout-body">
             <div class="layui-layout layui-layout-admin">

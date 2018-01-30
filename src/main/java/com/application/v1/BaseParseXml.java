@@ -1,5 +1,6 @@
 package com.application.v1;
 
+import com.application.v1.library.CustomSelectAnalyze;
 import com.application.v1.library.JsonUtil;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang.StringUtils;
@@ -104,6 +105,31 @@ public class BaseParseXml {
             parseAddButton.put("buttonName", buttonName);
             parseAddButton.put("buttonUrl", buttonUrl);
             xmlMap.put("addButton", parseAddButton);
+            //搜索
+            Element search = root.element("search");
+            List<Map<String, Object>> searchList = new ArrayList<>();
+            List<Element> searchColumnList = search.elements();
+            for (Element element : searchColumnList) {
+                String searchTypeValue = element.attributeValue("type");
+                String searchNameValue = element.attributeValue("name");
+                List<String> defaultType = defaultType();
+                Map<String, Object> newSearchMap = new HashMap<>();
+                if (StringUtils.isEmpty(searchTypeValue)) {
+                    newSearchMap.put("type", "");
+                    newSearchMap.put("name", "");
+                } else if (defaultType.contains(searchTypeValue)) {
+                    newSearchMap.put("type", searchTypeValue);
+                    newSearchMap.put("name", searchNameValue);
+                } else {
+                    CustomSelectAnalyze analyze = new CustomSelectAnalyze();
+                    Map<String, Object> option = analyze.parseSelect(searchTypeValue);
+                    newSearchMap.put("type", "select");
+                    newSearchMap.put("name", searchNameValue);
+                    newSearchMap.put("option", option);
+                }
+                searchList.add(newSearchMap);
+            }
+            xmlMap.put("search", searchList);
             System.out.println("ttm | " + JsonUtil.toJson(xmlMap));
         } else {
             logger.warn(path + " file is null");
@@ -117,4 +143,11 @@ public class BaseParseXml {
     public void setXmlMap(Map<String, Object> xmlMap) {
         this.xmlMap = xmlMap;
     }
+
+    private List<String> defaultType() {
+        List<String> defaultList = new ArrayList<>();
+        defaultList.add("text");
+        return defaultList;
+    }
+
 }

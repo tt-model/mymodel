@@ -7,7 +7,7 @@
                 <dl class="layui-nav-child">
                     <dd><a href="/v1/user/userManager">用户管理</a></dd>
                     <dd><a href="/v1/role/roleManager">角色管理</a></dd>
-                    <dd><a href="javascript:;">列表三</a></dd>
+                    <dd><a href="/v1/dept/deptManager">部门管理</a></dd>
                     <dd><a href="">超链接</a></dd>
                 </dl>
             </li>

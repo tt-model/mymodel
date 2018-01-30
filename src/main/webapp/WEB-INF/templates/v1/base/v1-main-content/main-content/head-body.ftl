@@ -20,7 +20,29 @@
                 <#list headerTitle as head>
                     <#assign name = head.name/>
                     <#if name != "action">
-                        <td><div class="layui-table-cell">${row[name]!''}</div></td>
+                        <td>
+                            <div class="layui-table-cell">
+                                <#list search as searchRow>
+                                    <#assign searchNameValue=searchRow["name"] />
+                                    <#assign searchTypeValue=searchRow["type"] />
+                                    <#if searchNameValue==name>
+                                        <#assign rowNum=row[name] />
+                                        <#if searchTypeValue=="select">
+                                            <#assign searchOptionValue=searchRow["option"] />
+                                            <#if searchOptionValue[rowNum?string]??>
+                                                ${searchOptionValue[rowNum?string]}
+                                                <#else>
+                                                ${rowNum}
+                                            </#if>
+                                        </#if>
+                                        <#if searchTypeValue=="text">
+                                            ${rowNum}
+                                        </#if>
+                                        <#break />
+                                    </#if>
+                                </#list>
+                            </div>
+                        </td>
                     <#else>
                         <td>
                             <div class="layui-btn-group layui-table-cell">
