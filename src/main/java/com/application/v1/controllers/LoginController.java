@@ -1,9 +1,7 @@
 package com.application.v1.controllers;
 
 import com.application.v1.library.JsonUtil;
-import com.application.v1.library.ServiceResponse;
 import com.application.v1.library.ServiceResponseUtil;
-import com.application.v1.library.ShiroUtil;
 import com.application.v1.orms.User;
 import com.application.v1.services.UserService;
 import com.application.v1.shiro.ShiroUtils;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.security.auth.Subject;
 import java.util.Map;
 
 /**
