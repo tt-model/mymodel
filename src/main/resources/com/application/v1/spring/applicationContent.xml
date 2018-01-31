@@ -21,8 +21,6 @@
         </mvc:interceptor>
     </mvc:interceptors>
 
-
-
     <!-- FreeMarker模板路径 -->
     <bean id="freemarkerConfig"
           class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
