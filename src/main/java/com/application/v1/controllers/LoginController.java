@@ -55,7 +55,7 @@ public class LoginController {
 
         UsernamePasswordToken token = new UsernamePasswordToken(user.getUserName(), user.getPassword());
         try {
-            ShiroUtils.getSecurity().login(token);
+            ShiroUtils.getSubject().login(token);
         } catch (UnknownAccountException e) {
             LOG.error("验证错误");
         }
@@ -76,7 +76,7 @@ public class LoginController {
      */
     @RequestMapping(value = "/loginOut", method = RequestMethod.GET)
     public String loginOut() {
-        ShiroUtil.logout();
+        ShiroUtils.logout();
         return "/v1/admin/user/login";
     }
 
