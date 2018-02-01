@@ -3,6 +3,7 @@ package com.application.v1.services;
 import com.application.v1.orms.Dept;
 
 import java.util.List;
+import java.util.Map;
 
 public interface DeptService {
 
@@ -14,4 +15,5 @@ public interface DeptService {
 
     public int deptCount();
 
+    public List<Dept> getCollection(Map<String, Object> query);
 }

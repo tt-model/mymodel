@@ -5,15 +5,12 @@ import com.application.v1.library.AesEncodeUtil;
 import com.application.v1.library.ServiceResponse;
 import com.application.v1.library.ServiceResponseUtil;
 import com.application.v1.orms.User;
-import com.application.v1.repositorys.UserRepository;
 import com.application.v1.services.UserService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
 
 import java.util.List;
 
@@ -93,11 +90,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean userUpdate(User user) {
-        return userDao.userUpdate(user);
+        return false;
     }
 
     @Override
     public void userShow() {
-        userDao.userShow();
+
     }
+
 }

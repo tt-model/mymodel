@@ -147,6 +147,7 @@ public class BaseParseXml {
     private List<String> defaultType() {
         List<String> defaultList = new ArrayList<>();
         defaultList.add("text");
+        defaultList.add("datetime");
         return defaultList;
     }
 

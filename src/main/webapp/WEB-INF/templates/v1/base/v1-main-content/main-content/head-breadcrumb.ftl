@@ -10,7 +10,7 @@
         <button class="layui-btn layui-btn-small" onclick='${addButton["buttonUrl"]!""}'>
             <i class="layui-icon">&#xe654;</i><@s.messageText code='${addButton["buttonName"]!""}' text='${addButton["buttonName"]!""}' />
         </button>
-        <button class="layui-btn layui-btn-small" onclick="javascript:;">
+        <button class="layui-btn layui-btn-small" onclick="search.show('${managerUrl}');">
             <i class="layui-icon">&#xe615;</i><@s.messageText code="search" text='search'/>
         </button>
         <button class="layui-btn layui-btn-small" onclick="javascript:;">

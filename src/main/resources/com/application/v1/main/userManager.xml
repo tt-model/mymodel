@@ -27,7 +27,7 @@
         <column name="deptId" type="DeptNameSelect" />
         <column name="email" type="text" />
         <column name="mobile" type="text" />
-        <column name="createTime" type="text" />
+        <column name="createTime" type="datetime" />
         <column name="action" type="" />
     </search>
 </main>

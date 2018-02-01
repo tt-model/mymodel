@@ -18,25 +18,41 @@
             <tr id="model-search">
             <#list headerTitle as head>
                 <th class="layui-col-top">
-                    <div class="layui-row layui-date-row">
-                        <#list search as searchRow>
-                            <#assign searchNameValue=searchRow["name"] />
-                            <#assign searchTypeValue=searchRow["type"] />
-                            <#if searchNameValue==head['name']>
-                                <#--- 文本 --->
-                                <#if searchTypeValue=='text'>
-                                    <input type="text" name="text" class="layui-input">
-                                </#if>
-                                <#--- 选择 --->
-                                <#if searchTypeValue=='select'>
-                                    <#assign searchOptionValue=searchRow["option"] />
-                                    <@s.formSingleSelect searchNameValue searchNameValue searchOptionValue 0 'lay-search' />
-                                </#if>
-                                <#break>
+                    <#list search as searchRow>
+                        <#assign searchNameValue=searchRow["name"] />
+                        <#assign searchTypeValue=searchRow["type"] />
+                        <#if searchNameValue==head['name']>
+                            <#--- 文本 --->
+                            <#if searchTypeValue=='text'>
+                                <div class="layui-row layui-date-row">
+                                    <input type="text" name="${searchNameValue}" class="layui-input layui-filter">
+                                </div>
                             </#if>
-                        </#list>
+                            <#--- 选择 --->
+                            <#if searchTypeValue=='select'>
+                                <div class="layui-row layui-date-row">
+                                    <#assign searchOptionValue=searchRow["option"] />
+                                    <@s.formSingleSelect searchNameValue searchNameValue searchOptionValue 0 'lay-search class="layui-filter"' />
+                                </div>
+                            </#if>
+                            <#if searchTypeValue=='datetime'>
+                                <div class="layui-row layui-date-row">
+                                    <div class="layui-col-md2"><label class="layui-date-label">从</label></div>
+                                    <div class="layui-col-md10">
+                                        <input id="${searchNameValue}-form" type="text" name="${searchNameValue}[form]" class="layui-input layui-filter">
+                                    </div>
+                                </div>
+                                <div class="layui-row layui-date-row">
+                                    <div class="layui-col-md2"><label class="layui-date-label">到</label></div>
+                                    <div class="layui-col-md10">
+                                        <input id="${searchNameValue}-to" type="text" name="${searchNameValue}[to]" class="layui-input layui-filter">
+                                    </div>
+                                </div>
+                            </#if>
+                            <#break>
+                        </#if>
+                    </#list>
 
-                    </div>
                 </th>
             </#list>
             </tr>

@@ -24,7 +24,7 @@
         <column name="roleName" type="text" />
         <column name="remark" type="text" />
         <column name="deptId" type="DeptNameSelect" />
-        <column name="createTime" type="text" />
+        <column name="createTime" type="datetime" />
         <column name="action" type="" />
     </search>
 </main>
