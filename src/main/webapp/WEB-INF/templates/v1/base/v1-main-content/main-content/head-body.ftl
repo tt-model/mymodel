@@ -52,7 +52,6 @@
                             <#break>
                         </#if>
                     </#list>
-
                 </th>
             </#list>
             </tr>
