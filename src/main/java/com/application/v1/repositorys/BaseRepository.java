@@ -11,4 +11,6 @@ public interface BaseRepository<T, ID extends Serializable> extends JpaRepositor
 
     public List<T> getCollection(SpecificationOperator query);
 
+    public Long getCollectionCount(SpecificationOperator query);
+
 }

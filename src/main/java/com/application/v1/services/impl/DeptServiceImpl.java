@@ -2,6 +2,7 @@ package com.application.v1.services.impl;
 
 import com.application.v1.daos.DeptDao;
 import com.application.v1.orms.Dept;
+import com.application.v1.repositorys.BaseRepository;
 import com.application.v1.repositorys.SpecificationOperator;
 import com.application.v1.services.DeptService;
 import org.apache.commons.collections.MapUtils;
@@ -10,12 +11,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Service
-public class DeptServiceImpl implements DeptService {
+public class DeptServiceImpl extends BaseServiceImpl<Dept, Long> implements DeptService {
 
     @Autowired
     private DeptDao deptDao;
@@ -43,18 +45,13 @@ public class DeptServiceImpl implements DeptService {
     }
 
     @Override
-    public List<Dept> getCollection(Map<String, Object> query) {
-        if (MapUtils.isNotEmpty(query)) {
-            SpecificationOperator operator = new SpecificationOperator();
-            for (String keyRow : query.keySet()) {
-                String[] valueRow = (String[]) query.get(keyRow);
-                operator.put(keyRow, Long.valueOf(valueRow[0]));
-            }
-            return deptDao.getCollection(operator);
-        } else {
-            return deptDao.getCollection(null);
-        }
+    public List getCollection(HttpServletRequest request) {
+        return super.getCollection(deptDao, request);
     }
 
+    @Override
+    public Long getCollectionCount(HttpServletRequest request) {
+        return super.getCollectionCount(deptDao, request);
+    }
 
 }

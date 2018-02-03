@@ -30,10 +30,19 @@ public class BaseRepositoryCustomImpl<T, ID extends Serializable> extends Simple
     @Override
     public List<T> getCollection(SpecificationOperator query) {
         if (MapUtils.isNotEmpty(query)) {
-            BaseRepositoryCustomImpl.ByQuerySpecification operatorQuery = new BaseRepositoryCustomImpl.ByQuerySpecification(query);
+           BaseRepositoryCustomImpl.ByQuerySpecification operatorQuery = new BaseRepositoryCustomImpl.ByQuerySpecification(query);
            return findAll(operatorQuery, (Sort) null);
         }
         return findAll();
+    }
+
+    @Override
+    public Long getCollectionCount(SpecificationOperator query) {
+        if (MapUtils.isNotEmpty(query)) {
+            BaseRepositoryCustomImpl.ByQuerySpecification operatorQuery = new BaseRepositoryCustomImpl.ByQuerySpecification(query);
+            return count(operatorQuery);
+        }
+        return count();
     }
 
     private static final class ByQuerySpecification<T> implements Specification {

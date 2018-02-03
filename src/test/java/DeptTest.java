@@ -5,6 +5,8 @@ import com.sun.javafx.collections.MappingChange;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.servlet.http.HttpServletRequest;
+
 public class DeptTest extends SpringTest {
 
     @Autowired
@@ -22,11 +24,12 @@ public class DeptTest extends SpringTest {
 //        dept.setParentId(1L);
 //        boolean saveFalg = deptService.deptSave(dept);
 //        System.out.println("show result : " + saveFalg);
-        String[] a = new String[1];
-        a[0] = "3";
-        SpecificationOperator query = new SpecificationOperator();
-        query.put("parentId", a);
-        deptService.getCollection(query);
+//        String[] a = new String[1];
+//        a[0] = "3";
+//        SpecificationOperator query = new SpecificationOperator();
+//        query.put("parentId", a);
+//        deptService.getCollection(query);
+//        HttpServletRequest request = new Htt
     }
 
 }

@@ -10,7 +10,7 @@ import java.util.Map;
  * @auther ttm
  * @date 2017/10/31
  */
-public interface UserService {
+public interface UserService extends BaseService {
 
     /**
      * 查询数量

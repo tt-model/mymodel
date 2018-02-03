@@ -18,38 +18,16 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(value = "/v1/role")
-public class RoleController {
+public class RoleController extends BaseContoller {
 
     @Autowired
     private RoleService roleService;
 
-    @RequestMapping(value = "roleManager", method = {RequestMethod.GET})
-    public ModelAndView roleManagerGet() {
-        return roleManager(0, 0);
-    }
-
-    @RequestMapping(value = "roleManager", method = {RequestMethod.POST})
-    public ModelAndView roleManagerPost(HttpServletRequest request) {
-        String pageNumber = request.getParameter("pageNumber");
-        String pageSize = request.getParameter("pageSize");
-        return roleManager(Integer.valueOf(pageNumber), Integer.valueOf(pageSize));
-    }
-
-    private ModelAndView roleManager(int pageNumber, int pageSize) {
-        ModelAndView view = new ModelAndView();
-        if (pageNumber <= 0) {
-            pageNumber = 1;
-        }
-        if (pageSize <= 0) {
-            pageSize = 10;
-        }
-        List<Role> roleList = roleService.roleList(pageNumber, pageSize);
-        int roleCount = roleService.roleCount();
-        view.addObject("main", "true");
-        view.addObject("collection", roleList);
-        view.addObject("collectionCount", roleCount);
-        view.setViewName("/v1/base/v1-main-content");
-        return view;
+    @RequestMapping(value = "roleManager", method = {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView roleManager(HttpServletRequest request) {
+        List<Role> roleList = roleService.getCollection(request);
+        Long roleCount = roleService.getCollectionCount(request);
+        return manager(getPageNumber(), getPageSize(), roleList, Integer.valueOf(roleCount.toString()));
     }
 
 }

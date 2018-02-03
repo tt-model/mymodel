@@ -372,8 +372,8 @@
  * @param value the current value in a list iteration
 -->
 <#macro checkSelected value>
-    <#if stringStatusValue?is_number && stringStatusValue == value?number>selected="selected"</#if>
-    <#if stringStatusValue?is_string && stringStatusValue == value>selected="selected"</#if>
+    <#if stringStatusValue?is_number && value?is_number && stringStatusValue == value?number>selected="selected"</#if>
+    <#if stringStatusValue?is_string && value?is_string && stringStatusValue == value>selected="selected"</#if>
 </#macro>
 
 <#--

@@ -26,6 +26,7 @@ public class DeptNameSelect {
         List<Dept> deptList = deptServiceImpl.deptListByAll();
         Map<String, Object> optionMap = new HashMap<>();
         if (CollectionUtils.isNotEmpty(deptList)) {
+            optionMap.put("", "");
             for (Dept row : deptList) {
                 optionMap.put(String.valueOf(row.getDeptId()), row.getName());
             }

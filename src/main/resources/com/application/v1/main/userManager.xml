@@ -22,12 +22,12 @@
         <width value="100" />
     </widths>
     <search>
-        <column name="userId" type="text" />
-        <column name="userName" type="text" />
-        <column name="deptId" type="DeptNameSelect" />
-        <column name="email" type="text" />
-        <column name="mobile" type="text" />
-        <column name="createTime" type="datetime" />
+        <column name="userId[Long]" type="text" />
+        <column name="userName[String]" type="text" />
+        <column name="deptId[Long]" type="DeptNameSelect" />
+        <column name="email[String]" type="text" />
+        <column name="mobile[String]" type="text" />
+        <column name="createTime[String]" type="datetime" />
         <column name="action" type="" />
     </search>
 </main>

@@ -15,44 +15,41 @@
                 </th>
             </#list>
             </tr>
+            <#-- 搜索 -->
             <tr id="model-search">
-            <#list headerTitle as head>
+            <#list search as searchRow>
+                <#--搜索字段名称-->
+                <#assign searchName=searchRow.name/>
+                <#--搜索字段类型-->
+                <#assign searchType=searchRow.type/>
+                <#assign searchFilter="layui-filter"/>
                 <th class="layui-col-top">
-                    <#list search as searchRow>
-                        <#assign searchNameValue=searchRow["name"] />
-                        <#assign searchTypeValue=searchRow["type"] />
-                        <#if searchNameValue==head['name']>
-                            <#--- 文本 --->
-                            <#if searchTypeValue=='text'>
-                                <div class="layui-row layui-date-row">
-                                    <input type="text" name="${searchNameValue}" class="layui-input layui-filter">
-                                </div>
-                            </#if>
-                            <#--- 选择 --->
-                            <#if searchTypeValue=='select'>
-                                <div class="layui-row layui-date-row">
-                                    <#assign searchOptionValue=searchRow["option"] />
-                                    <@s.formSingleSelect searchNameValue searchNameValue searchOptionValue 0 'lay-search class="layui-filter"' />
-                                </div>
-                            </#if>
-                            <#if searchTypeValue=='datetime'>
-                                <div class="layui-row layui-date-row">
-                                    <div class="layui-col-md2"><label class="layui-date-label">从</label></div>
-                                    <div class="layui-col-md10">
-                                        <input id="${searchNameValue}-form" type="text" name="${searchNameValue}[form]" class="layui-input layui-filter">
-                                    </div>
-                                </div>
-                                <div class="layui-row layui-date-row">
-                                    <div class="layui-col-md2"><label class="layui-date-label">到</label></div>
-                                    <div class="layui-col-md10">
-                                        <input id="${searchNameValue}-to" type="text" name="${searchNameValue}[to]" class="layui-input layui-filter">
-                                    </div>
-                                </div>
-                            </#if>
-                            <#break>
-                        </#if>
-                    </#list>
-
+                    <#--- 文本 --->
+                    <#if searchType=='text'>
+                        <div class="layui-row layui-date-row">
+                            <input type="text" name="${searchName}" class="layui-input ${searchFilter}">
+                        </div>
+                    </#if>
+                    <#if searchType='select'>
+                        <div class="layui-row layui-date-row">
+                            <#assign searchOptionValue=searchRow["option"] />
+                            <@s.formSingleSelect searchName searchName searchOptionValue 0 'lay-search class="${searchFilter}"' />
+                        </div>
+                    </#if>
+                    <#if searchType='datetime'>
+                        <div class="layui-row layui-date-row">
+                            <div class="layui-col-md2"><label class="layui-date-label">从</label></div>
+                            <div class="layui-col-md10">
+                                <input id="${searchName}-form" type="text" name="${searchName}[form]" class="layui-input ${searchFilter}">
+                            </div>
+                        </div>
+                        <div class="layui-row layui-date-row">
+                            <div class="layui-col-md2"><label class="layui-date-label">到</label></div>
+                            <div class="layui-col-md10">
+                                <input id="${searchName}-to" type="text" name="${searchName}[to]" class="layui-input ${searchFilter}">
+                            </div>
+                        </div>
+                    </#if>
                 </th>
             </#list>
             </tr>
@@ -63,27 +60,23 @@
                 <#list headerTitle as head>
                     <#assign name = head.name/>
                     <#if name != "action">
+                        <#assign rowNum=''/>
+                        <#list search as searchRow>
+                            <#assign searchTypeValue=searchRow.type />
+                            <#if head_index==searchRow_index>
+                                <#assign rowNum=row[name] />
+                                <#if searchTypeValue=="select">
+                                    <#assign searchOptionValue=searchRow.option />
+                                    <#if searchOptionValue[rowNum?string]??>
+                                        <#assign rowNum=searchOptionValue[rowNum?string]/>
+                                    </#if>
+                                </#if>
+                                <#break />
+                            </#if>
+                        </#list>
                         <td>
                             <div class="layui-table-cell">
-                                <#list search as searchRow>
-                                    <#assign searchNameValue=searchRow["name"] />
-                                    <#assign searchTypeValue=searchRow["type"] />
-                                    <#if searchNameValue==name>
-                                        <#assign rowNum=row[name] />
-                                        <#if searchTypeValue=="select">
-                                            <#assign searchOptionValue=searchRow["option"] />
-                                            <#if searchOptionValue[rowNum?string]??>
-                                                ${searchOptionValue[rowNum?string]}
-                                                <#else>
-                                                ${rowNum}
-                                            </#if>
-                                        </#if>
-                                        <#if searchTypeValue=="text">
-                                            ${rowNum}
-                                        </#if>
-                                        <#break />
-                                    </#if>
-                                </#list>
+                                ${rowNum}
                             </div>
                         </td>
                     <#else>
