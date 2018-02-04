@@ -25,15 +25,19 @@
                 <#assign searchFilter="layui-filter"/>
                 <th class="layui-col-top">
                     <#--- 文本 --->
+                    <#assign filterValue=''/>
+                    <#if filter?exists>
+                        <#assign filterValue=filter[searchName]!''/>
+                    </#if>
                     <#if searchType=='text'>
                         <div class="layui-row layui-date-row">
-                            <input type="text" name="${searchName}" class="layui-input ${searchFilter}">
+                            <input type="text" name="${searchName}" value="${filterValue}" class="layui-input ${searchFilter}">
                         </div>
                     </#if>
                     <#if searchType='select'>
                         <div class="layui-row layui-date-row">
                             <#assign searchOptionValue=searchRow["option"] />
-                            <@s.formSingleSelect searchName searchName searchOptionValue 0 'lay-search class="${searchFilter}"' />
+                            <@s.formSingleSelect searchName searchName searchOptionValue filterValue 'lay-search class="${searchFilter}"' />
                         </div>
                     </#if>
                     <#if searchType='datetime'>

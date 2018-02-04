@@ -5,8 +5,10 @@ import com.application.v1.core.session.FilterSession;
 import com.application.v1.core.session.MapSession;
 import com.application.v1.library.JsonUtil;
 import com.application.v1.library.Page;
+import com.application.v1.library.RequestServletUtil;
 import com.application.v1.orms.User;
 import com.application.v1.shiro.ShiroUtils;
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.core.MethodParameter;
@@ -38,18 +40,6 @@ public class BaseInterceptor extends HandlerInterceptorAdapter {
             response.sendRedirect("/v1/admin/login");
             return false;
         }
-        //获取session 对session进行处理
-        String sessionId = request.getRequestedSessionId();
-        HttpSession session = request.getSession();
-        MapSession mapSession = (MapSession) session.getAttribute(FilterSession.FILTER);
-        FilterSession filterSession = new FilterSession();
-        String method = request.getMethod();
-        String postMethod = RequestMethod.POST.name().toUpperCase();
-        //如果是post请求 目前当成管理页面请求
-        if (postMethod.equals(method)) {
-
-        }
-
         return super.preHandle(request, response, handler);
     }
 
@@ -82,6 +72,10 @@ public class BaseInterceptor extends HandlerInterceptorAdapter {
             }
             Page page = new Page(collectionCount, Integer.valueOf(pageNumber), Integer.valueOf(pageSize));
             modelAndView.addObject("paging", page);
+            MapSession mapSession = (MapSession) RequestServletUtil.fetchSession().getAttribute(FilterSession.FILTER);
+            if (MapUtils.isNotEmpty(mapSession)) {
+                modelAndView.addObject(FilterSession.FILTER, mapSession);
+            }
 //            modelMap.put("paging", page);
             System.out.println("show modelAndView : " + JsonUtil.toJson(modelAndView));
         } else if (modelAndView.getModelMap().containsKey("add")) {

@@ -13,6 +13,11 @@ import java.util.List;
 public interface BaseService<T, ID extends Serializable> {
 
     /**
+     * 处理一些数据的方法
+     */
+    public void execute(HttpServletRequest request);
+
+    /**
      * 获取数据集合
      * @param repository
      * @param request

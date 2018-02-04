@@ -1,13 +1,20 @@
 package com.application.v1.services.impl;
 
+import com.application.v1.core.session.FilterSession;
+import com.application.v1.core.session.MapSession;
+import com.application.v1.library.RequestServletUtil;
 import com.application.v1.repositorys.BaseRepository;
 import com.application.v1.repositorys.SpecificationOperator;
 import com.application.v1.services.BaseService;
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +23,14 @@ import java.util.Map;
  * @date 2017/11/29
  */
 public abstract class BaseServiceImpl<T, ID extends Serializable> implements BaseService {
+
+    private SpecificationOperator operator;
+
+    @Override
+    public void execute(HttpServletRequest request) {
+        operator = generateSpecification(request);
+        siteFilterSession(operator);
+    }
 
     /**
      * 获取数据集合
@@ -33,14 +48,40 @@ public abstract class BaseServiceImpl<T, ID extends Serializable> implements Bas
 
     @Override
     public List getCollection(BaseRepository baseRepository, HttpServletRequest request) {
-        SpecificationOperator operator = generateSpecification(request);
         return baseRepository.getCollection(operator);
     }
 
     @Override
     public Long getCollectionCount(BaseRepository baseRepository, HttpServletRequest request) {
-        SpecificationOperator operator = generateSpecification(request);
         return baseRepository.getCollectionCount(operator);
+    }
+
+    /**
+     * 设置过滤条件
+     * @param operator
+     */
+    private void siteFilterSession(SpecificationOperator operator) {
+        //设置过滤条件
+        MapSession mapSession = new MapSession();
+        for (Object key : operator.keySet()) {
+            Object value = operator.get(key);
+            if (value instanceof Long) {
+                mapSession.put(key + "[Long]", value.toString());
+            } else if (value instanceof Integer) {
+                mapSession.put(key + "[Integer]", value.toString());
+            } else if (value instanceof Double) {
+                mapSession.put(key + "[Double]", value.toString());
+            } else {
+                mapSession.put(key + "[String]", value.toString());
+            }
+        }
+        HttpSession session = RequestServletUtil.fetchSession();
+        session.removeAttribute(FilterSession.FILTER);
+        if (MapUtils.isNotEmpty(mapSession)) {
+//            FilterSession filterSession = new FilterSession();
+            //去除session没有作为条件查询的值
+            RequestServletUtil.fetchSession().setAttribute(FilterSession.FILTER, mapSession);
+        }
     }
 
     /**

@@ -25,6 +25,7 @@ public class RoleController extends BaseContoller {
 
     @RequestMapping(value = "roleManager", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView roleManager(HttpServletRequest request) {
+        roleService.execute(request);
         List<Role> roleList = roleService.getCollection(request);
         Long roleCount = roleService.getCollectionCount(request);
         return manager(getPageNumber(), getPageSize(), roleList, Integer.valueOf(roleCount.toString()));

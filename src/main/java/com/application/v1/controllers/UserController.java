@@ -29,6 +29,7 @@ public class UserController extends BaseContoller {
      */
     @RequestMapping(value = "/userManager", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView userManager(HttpServletRequest request) {
+        userService.execute(request);
         List<User> userList = userService.getCollection(request);
         Long userCount = userService.getCollectionCount(request);
         return manager(getPageNumber(), getPageSize(), userList, Integer.valueOf(userCount.toString()));

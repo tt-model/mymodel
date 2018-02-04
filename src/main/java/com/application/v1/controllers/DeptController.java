@@ -22,6 +22,7 @@ public class DeptController extends BaseContoller {
 
     @RequestMapping(value = "/deptManager", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView deptManager(HttpServletRequest request) {
+        deptService.execute(request);
         List<Dept> deptList = deptService.getCollection(request);
         Long deptCount = deptService.getCollectionCount(request);
         return manager(getPageNumber(), getPageSize(), deptList, Integer.valueOf(deptCount.toString()));
