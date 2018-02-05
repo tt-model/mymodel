@@ -9,7 +9,7 @@ import java.util.List;
  * @auther ttm
  * @date 2017/11/21
  */
-public interface RoleService {
+public interface RoleService extends BaseService {
 
     public boolean roleSave(Role role);
 

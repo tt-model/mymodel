@@ -24,34 +24,10 @@ var page = {
             success: function( response ) {
                 dialog.close(index);
                 $("#headBody").html(response);
-                //初始化一次数据
-                layui.use('element', function(){
-                    //更新表单元素
-                    var form = layui.form;
-                    form.render();
-                    var laydate = layui.laydate;
-                    var laydateForm = $('input[id$="-form"]');
-                    if (laydateForm.length > 0) {
-                        laydateForm.each(function() {
-                            //执行一个laydate实例
-                            var dateFormId = '#' + this.id;
-                            laydate.render({
-                                elem: dateFormId,
-                                type: 'datetime'
-                            });
-                        });
-                    }
-                    var laydateTo = $('input[id$="-to"]');
-                    if (laydateTo.length > 0) {
-                        laydateTo.each(function() {
-                            var dateToId = '#' + this.id;
-                            laydate.render({
-                                elem: dateToId,
-                                type: 'datetime'
-                            });
-                        });
-                    }
-                });
+                //更新表单元素
+                var form = layui.form;
+                form.render();
+                dateTime.init();
             },
             error: function() {
                 dialog.close(index);

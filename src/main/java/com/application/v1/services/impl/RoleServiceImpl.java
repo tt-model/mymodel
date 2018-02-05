@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ import java.util.List;
  * @date 2017/11/21
  */
 @Service
-public class RoleServiceImpl implements RoleService {
+public class RoleServiceImpl extends BaseServiceImpl<Role, Long> implements RoleService {
 
     @Autowired
     private RoleDao roleDao;
@@ -37,4 +38,13 @@ public class RoleServiceImpl implements RoleService {
         return Long.valueOf(roleDao.count()).intValue();
     }
 
+    @Override
+    public List<Role> getCollection(HttpServletRequest request) {
+        return getCollection(roleDao, request);
+    }
+
+    @Override
+    public Long getCollectionCount(HttpServletRequest request) {
+        return getCollectionCount(roleDao, request);
+    }
 }

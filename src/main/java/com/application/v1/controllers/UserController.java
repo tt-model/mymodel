@@ -28,10 +28,11 @@ public class UserController extends BaseContoller {
      * @return
      */
     @RequestMapping(value = "/userManager", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView userManagerGet() {
-        List<User> userList = userService.userList(getPageNumber(), getPageSize());
-        int userCount = userService.userCount();
-        return manager(getPageNumber(), getPageSize(), userList, userCount);
+    public ModelAndView userManager(HttpServletRequest request) {
+        userService.execute(request);
+        List<User> userList = userService.getCollection(request);
+        Long userCount = userService.getCollectionCount(request);
+        return manager(getPageNumber(), getPageSize(), userList, Integer.valueOf(userCount.toString()));
     }
 
 }

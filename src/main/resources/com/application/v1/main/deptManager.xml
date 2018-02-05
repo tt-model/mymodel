@@ -18,10 +18,10 @@
         <width value="100" />
     </widths>
     <search>
-        <column name="deptId" type="text" />
-        <column name="parentId" type="DeptNameSelect" />
-        <column name="name" type="text" />
-        <column name="orderNum" type="text" />
+        <column name="deptId[Long]" type="text" />
+        <column name="parentId[Long]" type="DeptNameSelect" />
+        <column name="name[String]" type="text" />
+        <column name="orderNum[Integer]" type="text" />
         <column name="action" type="" />
     </search>
 </main>

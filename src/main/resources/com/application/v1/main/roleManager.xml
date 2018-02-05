@@ -20,11 +20,11 @@
         <width value="100" />
     </widths>
     <search>
-        <column name="roleId" type="text" />
-        <column name="roleName" type="text" />
-        <column name="remark" type="text" />
-        <column name="deptId" type="DeptNameSelect" />
-        <column name="createTime" type="datetime" />
+        <column name="roleId[Long]" type="text" />
+        <column name="roleName[String]" type="text" />
+        <column name="remark[String]" type="text" />
+        <column name="deptId[Long]" type="DeptNameSelect" />
+        <column name="createTime[String]" type="datetime" />
         <column name="action" type="" />
     </search>
 </main>

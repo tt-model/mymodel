@@ -21,11 +21,11 @@ public class DeptController extends BaseContoller {
     private DeptService deptService;
 
     @RequestMapping(value = "/deptManager", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView deptManagerGet(HttpServletRequest request) {
-        Map<String, Object> parameterMap = request.getParameterMap();
-        List<Dept> deptList = deptService.getCollection(parameterMap);
-        int deptCount = deptService.deptCount();
-        return manager(getPageNumber(), getPageSize(), deptList, deptCount);
+    public ModelAndView deptManager(HttpServletRequest request) {
+        deptService.execute(request);
+        List<Dept> deptList = deptService.getCollection(request);
+        Long deptCount = deptService.getCollectionCount(request);
+        return manager(getPageNumber(), getPageSize(), deptList, Integer.valueOf(deptCount.toString()));
     }
 
 }

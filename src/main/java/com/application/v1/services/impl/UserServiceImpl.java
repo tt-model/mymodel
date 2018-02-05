@@ -5,6 +5,7 @@ import com.application.v1.library.AesEncodeUtil;
 import com.application.v1.library.ServiceResponse;
 import com.application.v1.library.ServiceResponseUtil;
 import com.application.v1.orms.User;
+import com.application.v1.repositorys.SpecificationOperator;
 import com.application.v1.services.UserService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -19,7 +21,7 @@ import java.util.List;
  * @date 2017/10/31
  */
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends BaseServiceImpl<User, Long> implements UserService {
 
     @Autowired
     private UserDao userDao;
@@ -98,4 +100,13 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Override
+    public List getCollection(HttpServletRequest request) {
+        return getCollection(userDao, request);
+    }
+
+    @Override
+    public Long getCollectionCount(HttpServletRequest request) {
+        return getCollectionCount(userDao, request);
+    }
 }
