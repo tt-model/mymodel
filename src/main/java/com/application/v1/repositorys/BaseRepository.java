@@ -1,5 +1,6 @@
 package com.application.v1.repositorys;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 
@@ -12,5 +13,7 @@ public interface BaseRepository<T, ID extends Serializable> extends JpaRepositor
     public List<T> getCollection(SpecificationOperator query);
 
     public Long getCollectionCount(SpecificationOperator query);
+
+    public  List<T> getCollection(SpecificationOperator query, Pageable pageable);
 
 }

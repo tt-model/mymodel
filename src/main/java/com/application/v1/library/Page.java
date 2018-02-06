@@ -1,5 +1,7 @@
 package com.application.v1.library;
 
+import org.springframework.data.domain.PageRequest;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -68,6 +70,8 @@ public class Page {
      * 数字分页连接
      */
     private List<Integer> linkPages;
+
+    private PageRequest pageRequest;
 
     public Page(int totalRows, Map<String, Object> paging) {
         this(totalRows,

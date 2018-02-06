@@ -2,6 +2,7 @@ package com.application.v1.services.impl;
 
 import com.application.v1.core.session.FilterSession;
 import com.application.v1.core.session.MapSession;
+import com.application.v1.core.session.PageSession;
 import com.application.v1.library.RequestServletUtil;
 import com.application.v1.repositorys.BaseRepository;
 import com.application.v1.repositorys.SpecificationOperator;
@@ -28,8 +29,11 @@ public abstract class BaseServiceImpl<T, ID extends Serializable> implements Bas
 
     @Override
     public void execute(HttpServletRequest request) {
+        //获取过滤条件
         operator = generateSpecification(request);
         siteFilterSession(operator);
+        //分页条件
+        sitePageSession(operator);
     }
 
     /**
@@ -54,6 +58,15 @@ public abstract class BaseServiceImpl<T, ID extends Serializable> implements Bas
     @Override
     public Long getCollectionCount(BaseRepository baseRepository, HttpServletRequest request) {
         return baseRepository.getCollectionCount(operator);
+    }
+
+    /**
+     * 设置分页条件
+     * @param operator
+     */
+    private void sitePageSession(SpecificationOperator operator) {
+        PageSession pageSession = new PageSession();
+
     }
 
     /**
