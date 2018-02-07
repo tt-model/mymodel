@@ -2,6 +2,7 @@ package com.application.v1.repositorys;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
@@ -43,6 +44,11 @@ public class BaseRepositoryCustomImpl<T, ID extends Serializable> extends Simple
             return count(operatorQuery);
         }
         return count();
+    }
+
+    @Override
+    public List<T> getCollection(SpecificationOperator query, Pageable pageable) {
+        return null;
     }
 
     private static final class ByQuerySpecification<T> implements Specification {
