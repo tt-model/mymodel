@@ -28,7 +28,7 @@ public class RoleController extends BaseContoller {
         roleService.execute(request);
         List<Role> roleList = roleService.getCollection(request);
         Long roleCount = roleService.getCollectionCount(request);
-        return manager(getPageNumber(), getPageSize(), roleList, Integer.valueOf(roleCount.toString()));
+        return manager(roleService, roleList, roleCount);
     }
 
 }

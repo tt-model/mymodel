@@ -1,5 +1,6 @@
 package com.application.v1.library;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.data.domain.AbstractPageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -71,12 +72,25 @@ public class PageUtil extends AbstractPageRequest {
      */
     private List<Integer> linkPages;
 
+    /**
+     * 排序
+     */
     private Sort sort;
 
     /**
      * 排序对应的列
      */
     private String sortColumn;
+
+    /**
+     * 构造方法
+     * @param pageNumber
+     * @param pageSize
+     * @param totalRows
+     */
+    public PageUtil(int pageNumber, int pageSize, int totalRows) {
+        this(pageNumber, pageSize, totalRows, (Sort) null);
+    }
 
     /**
      * 分页构造方法
@@ -86,11 +100,9 @@ public class PageUtil extends AbstractPageRequest {
      * @param sortColumn        排序字段
      */
     public PageUtil(int pageNumber, int pageSize, int totalRows, String sortColumn) {
-        this(pageNumber, pageSize, new Sort(Sort.Direction.DESC, sortColumn));
+        this(pageNumber, pageSize, totalRows, StringUtils.isEmpty(sortColumn) ? (Sort) null : new Sort(Sort.Direction.DESC, sortColumn));
         //当前页
         this.pageNumber = initPageNumber(pageNumber);
-        //总数量
-        this.totalRows = totalRows;
         //排序字段
         this.sortColumn = sortColumn;
         //每页显示数量
@@ -109,8 +121,11 @@ public class PageUtil extends AbstractPageRequest {
         this.linkPages = linkPages(pageNumber, totalPages, rollPages);
     }
 
-    private PageUtil(int pageNumber, int pageSize, Sort sort) {
+    private PageUtil(int pageNumber, int pageSize, int totalRows, Sort sort) {
         super(pageNumber, pageSize);
+        //总数量
+        this.totalRows = totalRows;
+        //排序
         this.sort = sort;
     }
 
@@ -235,7 +250,7 @@ public class PageUtil extends AbstractPageRequest {
      */
     @Override
     public Pageable next() {
-        return isDownRow() ? this : new PageUtil(pageNumber, pageSize, totalRows, sortColumn);
+        return isDownRow() ? new PageUtil(pageNumber + 1, pageSize, totalRows, sortColumn) : this;
     }
 
     /**
@@ -244,7 +259,7 @@ public class PageUtil extends AbstractPageRequest {
      */
     @Override
     public Pageable previous() {
-        return isUpRow() ? this : new PageUtil(pageNumber, pageSize, totalRows, sortColumn);
+        return isUpRow() ? new PageUtil(pageNumber - 1, pageSize, totalRows, sortColumn) : this;
     }
 
     /**
@@ -253,7 +268,7 @@ public class PageUtil extends AbstractPageRequest {
      */
     @Override
     public Pageable first() {
-        return isFirstRow() ? this : new PageUtil(pageNumber, pageSize, totalRows, sortColumn);
+        return new PageUtil(1, pageSize, totalRows, sortColumn);
     }
 
     @Override

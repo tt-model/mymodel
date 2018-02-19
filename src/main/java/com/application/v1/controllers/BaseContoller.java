@@ -1,7 +1,11 @@
 package com.application.v1.controllers;
 
+import com.application.v1.library.Page;
+import com.application.v1.services.BaseService;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public class BaseContoller {
@@ -10,14 +14,20 @@ public class BaseContoller {
 
     private int pageSize = 20;
 
+    public ModelAndView manager(BaseService service, List<?> list, Long count) {
+        ModelAndView view = new ModelAndView();
+        PageRequest pageRequest = service.fetchPage();
+        view.addObject("main", "true");
+        view.addObject("collection", list);
+        view.addObject("collectionCount", count.intValue());
+        Page page = new Page(count.intValue(), (pageRequest.getPageNumber() + 1), pageRequest.getPageSize());
+        view.addObject("paging", page);
+        view.setViewName("/v1/base/v1-main-content");
+        return view;
+    }
+
     public ModelAndView manager(int pageNumber, int pageSize, List<?> list, int count) {
         ModelAndView view = new ModelAndView();
-        if (pageNumber <= 0) {
-            pageNumber = 1;
-        }
-        if (pageSize <= 0) {
-            pageSize = 10;
-        }
         view.addObject("main", "true");
         view.addObject("collection", list);
         view.addObject("collectionCount", count);

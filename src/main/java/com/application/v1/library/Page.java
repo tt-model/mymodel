@@ -2,6 +2,7 @@ package com.application.v1.library;
 
 import org.springframework.data.domain.PageRequest;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +12,7 @@ import java.util.Map;
  * @auther ttm
  * @date 2017/11/20
  */
-public class Page {
+public class Page implements Serializable {
 
     /**
      * 当前页

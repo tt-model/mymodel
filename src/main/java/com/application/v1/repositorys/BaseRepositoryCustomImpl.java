@@ -48,7 +48,11 @@ public class BaseRepositoryCustomImpl<T, ID extends Serializable> extends Simple
 
     @Override
     public List<T> getCollection(SpecificationOperator query, Pageable pageable) {
-        return null;
+        if (MapUtils.isNotEmpty(query)) {
+            BaseRepositoryCustomImpl.ByQuerySpecification operatorQuery = new BaseRepositoryCustomImpl.ByQuerySpecification(query);
+            return findAll(operatorQuery, pageable).getContent();
+        }
+        return findAll(pageable).getContent();
     }
 
     private static final class ByQuerySpecification<T> implements Specification {

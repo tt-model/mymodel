@@ -15,21 +15,39 @@ public class UserTest extends SpringTest {
     @Autowired
     private UserService userService;
 
-    @Test
+//    @Test
     public void userTest() {
-        User user = new User();
-        user.setUserName("admin");
-        user.setDeptId(1L);
-        String salt = RandomStringUtils.randomAlphanumeric(20);
-        user.setSalt(salt);
-        String password = ShiroUtils.sha256("admin", salt);
-        user.setPassword(password);
-        user.setEmail("1252575758@qq.com");
-        user.setMobile("15211636823");
-        user.setStatus(1);
-        user.setCreateTime(DateUtil.fetchCurrentTime());
+//        User user = new User();
+//        user.setUserName("admin");
+//        user.setDeptId(1L);
+//        String salt = RandomStringUtils.randomAlphanumeric(20);
+//        user.setSalt(salt);
+//        String password = ShiroUtils.sha256("admin", salt);
+//        user.setPassword(password);
+//        user.setEmail("1252575758@qq.com");
+//        user.setMobile("15211636823");
+//        user.setStatus(1);
+//        user.setCreateTime(DateUtil.fetchCurrentTime());
 //        Dumper.dump(user);
-        userService.userSave(user);
+//        userService.userSave(user);
+        genUser();
+    }
+
+    private void genUser() {
+        for (int x = 1; x < 1000; x++) {
+            User user = new User();
+            user.setUserName("tangtaiming-" + x);
+            user.setDeptId(1L);
+            String salt = RandomStringUtils.randomAlphanumeric(20);
+            user.setSalt(salt);
+            String password = ShiroUtils.sha256("tangtaiming", salt);
+            user.setPassword(password);
+            user.setEmail("1252575758@qq.com");
+            user.setMobile("15211636823");
+            user.setStatus(1);
+            user.setCreateTime(DateUtil.fetchCurrentTime());
+            userService.userSave(user);
+        }
     }
 
 }

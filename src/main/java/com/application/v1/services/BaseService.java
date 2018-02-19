@@ -1,6 +1,7 @@
 package com.application.v1.services;
 
 import com.application.v1.repositorys.BaseRepository;
+import org.springframework.data.domain.PageRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
@@ -46,6 +47,8 @@ public interface BaseService<T, ID extends Serializable> {
      * @return
      */
     public Long getCollectionCount(HttpServletRequest request);
+
+    public PageRequest fetchPage();
 
 
 }

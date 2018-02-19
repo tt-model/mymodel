@@ -55,29 +55,11 @@ public class BaseInterceptor extends HandlerInterceptorAdapter {
             baseParseXml.parseMainXml(actionNames[(actionNames.length - 1)]);
             modelAndView.addAllObjects(baseParseXml.getXmlMap());
             modelAndView.addObject("method", request.getMethod());
-//            modelMap.putAll(baseParseXml.getXmlMap());
-//            modelMap.put("method", request.getMethod());
-            //paging
-            String pageNumber = request.getParameter("pageNumber");
-            String pageSize = request.getParameter("pageSize");
-            if (StringUtils.isEmpty(pageNumber)) {
-                pageNumber = "1";
-            }
-            if (StringUtils.isEmpty(pageSize)) {
-                pageSize = "10";
-            }
-            Integer collectionCount = ( Integer ) modelAndView.getModelMap().get("collectionCount");
-            if (collectionCount == null) {
-                collectionCount = 0;
-            }
-            Page page = new Page(collectionCount, Integer.valueOf(pageNumber), Integer.valueOf(pageSize));
-            modelAndView.addObject("paging", page);
-            MapSession mapSession = (MapSession) RequestServletUtil.fetchSession().getAttribute(FilterSession.FILTER);
+            MapSession mapSession = (MapSession) RequestServletUtil.fetchSession().getAttribute(FilterSession.FILTER + "/" + requestUrl);
             if (MapUtils.isNotEmpty(mapSession)) {
                 modelAndView.addObject(FilterSession.FILTER, mapSession);
             }
-//            modelMap.put("paging", page);
-            System.out.println("show modelAndView : " + JsonUtil.toJson(modelAndView));
+//            System.out.println("show modelAndView : " + JsonUtil.toJson(modelAndView));
         } else if (modelAndView.getModelMap().containsKey("add")) {
 
         } else if (modelAndView.getModelMap().containsKey("edit")) {

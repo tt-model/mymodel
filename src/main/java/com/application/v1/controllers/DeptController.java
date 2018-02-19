@@ -25,7 +25,7 @@ public class DeptController extends BaseContoller {
         deptService.execute(request);
         List<Dept> deptList = deptService.getCollection(request);
         Long deptCount = deptService.getCollectionCount(request);
-        return manager(getPageNumber(), getPageSize(), deptList, Integer.valueOf(deptCount.toString()));
+        return manager(deptService, deptList, deptCount);
     }
 
 }

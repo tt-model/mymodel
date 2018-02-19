@@ -15,8 +15,8 @@ public class PageTest {
 //        Page page = new Page(200, 6, 20);
 //        System.out.println("ttm | " + page.toString());
 
-        PageUtil pageUtil = new PageUtil(1, 200, 4000, "user_id");
-        System.out.println("show | " + pageUtil.toString());
+        PageUtil pageUtil = new PageUtil(7, 200, 4000, "user_id");
+        System.out.println("show | " + pageUtil.next().toString());
     }
 
 }

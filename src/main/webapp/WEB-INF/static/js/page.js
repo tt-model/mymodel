@@ -7,20 +7,24 @@ var page = {
         page.build(url, null);
     },
     build : function(url, pageNumber) {
-        //获取当前页
-        if (pageNumber == null || pageNumber == "") {
-            pageNumber = $('#pageNumber').val();
-        }
-        //获取每页显示行数
-        var pageSize = $('#pageSize :checked').val();
-        var paging = {};
-        paging['pageNumber'] = pageNumber;
-        paging['pageSize'] = pageSize;
+        // //获取当前页
+        // if (pageNumber == null || pageNumber == "") {
+        //     pageNumber = $('#pageNumber').val();
+        // }
+        // //获取每页显示行数
+        // var pageSize = $('#pageSize :checked').val();
+        // var params = search.showParams();
+        // params['pageNumber'] = pageNumber;
+        // params['pageSize'] = pageSize;
+        var params = search.showParams();
+        var paging = page.pageParams(pageNumber);
+        params['pageNumber'] = paging['pageNumber'];
+        params['pageSize'] = paging['pageSize'];
         var index = dialog.load();
         $.ajax({
             type: 'post',
             url: url,
-            data: paging,
+            data: params,
             success: function( response ) {
                 dialog.close(index);
                 $("#headBody").html(response);
@@ -34,5 +38,22 @@ var page = {
                 dialog.error('[DATA ERROR] page request fail!')
             }
         });
+    },
+    /**
+     * 分页条件
+     * @param pageNumber
+     * @returns {{}}
+     */
+    pageParams : function (pageNumber) {
+        //获取当前页
+        if (pageNumber == null || pageNumber == "") {
+            pageNumber = $('#pageNumber').val();
+        }
+        //获取每页显示行数
+        var pageSize = $('#pageSize :checked').val();
+        var params = {};
+        params['pageNumber'] = pageNumber;
+        params['pageSize'] = pageSize;
+        return params;
     }
 }

@@ -1,6 +1,7 @@
 package com.application.v1.core.session;
 
 import com.application.v1.library.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.context.ServletConfigAware;
 
 /**
@@ -10,13 +11,19 @@ import org.springframework.web.context.ServletConfigAware;
  */
 public class PageSession {
 
-    private Page page;
+    public static final String PAGE = "page";
 
-    public Page getPage() {
-        return page;
+    /**
+     * dao 层分页对象
+     */
+    private PageRequest pageRequest;
+
+    public PageRequest getPageRequest() {
+        return pageRequest;
     }
 
-    public void setPage(Page page) {
-        this.page = page;
+    public void setPageRequest(PageRequest pageRequest) {
+        this.pageRequest = pageRequest;
     }
+
 }
