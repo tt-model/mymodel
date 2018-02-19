@@ -35,4 +35,13 @@ public class UserController extends BaseContoller {
         return manager(userService, userList, userCount);
     }
 
+    /**
+     * 创建用户
+     * @return
+     */
+    @RequestMapping(value = "/userCreator", method = RequestMethod.GET)
+    public ModelAndView userCreator() {
+        return new ModelAndView("/v1/base/v1-create-edit-content");
+    }
+
 }
