@@ -1,4 +1,4 @@
-<#include "head.ftl"/>
+<#include "head-edit.ftl"/>
     <body class="layui-layout-body">
     <div class="layui-layout layui-layout-admin">
         <#include "topNav.ftl"/>

@@ -7,7 +7,7 @@
 <hr>
 <div class="layui-row">
     <div class="layui-btn-group">
-        <button class="layui-btn layui-btn-small" onclick='${addButton["buttonUrl"]!""}'>
+        <button class="layui-btn layui-btn-small" onclick='javascript:window.location.href="${addButton['buttonUrl']!''}"'>
             <i class="layui-icon">&#xe654;</i><@s.messageText code='${addButton["buttonName"]!""}' text='${addButton["buttonName"]!""}' />
         </button>
         <button class="layui-btn layui-btn-small" onclick="search.show('${managerUrl}');">
