@@ -69,8 +69,21 @@ public class BaseRepositoryCustomImpl<T, ID extends Serializable> extends Simple
                 List<Predicate> predicates = new ArrayList<>();
                 for (Object keyRow : query.keySet()) {
                     Object valueRow = query.get(keyRow);
-                    if (valueRow instanceof Map) {
-
+                    if (valueRow instanceof SpecificationOperator) {
+                        SpecificationOperator valueOperator = (SpecificationOperator) valueRow;
+                        for (String key : valueOperator.keySet()) {
+                            Predicate predicate = null;
+                            String value = (String) valueOperator.get(key);
+                            if ("$gte".equals(key)) {
+                                predicate = criteriaBuilder.greaterThanOrEqualTo(root.get(keyRow.toString()).as(String.class), value);
+                            }
+                            if ("$lte".equals(key)) {
+                                predicate = criteriaBuilder.lessThanOrEqualTo(root.get(keyRow.toString()).as(String.class), value);
+                            }
+                            if (null != predicate) {
+                                predicates.add(predicate);
+                            }
+                        }
                     } else {
                         //相等于情况
                         Predicate predicate = criteriaBuilder.equal(root.get(keyRow.toString()), valueRow);
