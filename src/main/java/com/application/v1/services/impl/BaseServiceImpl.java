@@ -33,6 +33,14 @@ public abstract class BaseServiceImpl<T, ID extends Serializable> implements Bas
 
     private static final String PAGE_SIZE = "pageSize";
 
+    private static final String DATETIME_FORM = "[form]";
+
+    private static final String DATETIME_TO = "[to]";
+
+    private static final String GTE = "$gte";
+
+    private static final String LTE = "$lte";
+
     /**
      * 请求方式
      */
@@ -218,7 +226,8 @@ public abstract class BaseServiceImpl<T, ID extends Serializable> implements Bas
     public static void main(String[] args) {
         SpecificationOperator operator = new SpecificationOperator();
         DeptServiceImpl deptService = new DeptServiceImpl();
-        deptService.splitQuery("parentId", new String[]{"1"}, operator);
+        deptService.splitQuery("createDate[String][form]", new String[]{"2016"}, operator);
+        deptService.splitQuery("createDate[String][to]", new String[]{"2018"}, operator);
     }
 
     /**
@@ -232,34 +241,97 @@ public abstract class BaseServiceImpl<T, ID extends Serializable> implements Bas
         initList.add("[Integer]");
         initList.add("[Double]");
         initList.add("[String]");
-        String queryType = "String";
+        //时间格式处理
+        if (validateDatetime(text)) {
+            startDateForm(text, initList, value[0], operator);
+        } else {
+            String queryType = "String";
+            String queryName = "";
+            if (StringUtils.endsWith(text, "]")) {
+                for (String type : initList) {
+                    if (StringUtils.isNotEmpty(text) && StringUtils.endsWith(text, type)) {
+                        queryName = StringUtils.removeEnd(text, type);
+                        queryType = StringUtils.substring(text, (queryName.length() + 1), text.length() - 1);
+                        break;
+                    }
+                }
+
+            } else {
+                queryName = text;
+            }
+            if (queryType.equals("Long")) {
+                operator.put(queryName, Long.valueOf(value[0]));
+            } else if (queryType.equals("Integer")) {
+                operator.put(queryName, Integer.valueOf(value[0]));
+            } else if (queryType.equals("Double")) {
+                operator.put(queryName, Double.valueOf(value[0]));
+            } else {
+                operator.put(queryName, value[0]);
+            }
+        }
+    }
+
+    private void startDateForm(String dateText, List<String> init, String value, SpecificationOperator operator) {
         String queryName = "";
-        if (StringUtils.endsWith(text, "]")) {
-            for (String type : initList) {
-                if (StringUtils.isNotEmpty(text) && StringUtils.endsWith(text, type)) {
-                    queryName = StringUtils.removeEnd(text, type);
-                    queryType = StringUtils.substring(text, (queryName.length() + 1), text.length() - 1);
+        String queryType = "String";
+        if (StringUtils.endsWith(dateText, DATETIME_FORM)) {
+            String dateForm = StringUtils.removeEnd(dateText, DATETIME_FORM);
+            for (String type : init) {
+                if (StringUtils.isNotEmpty(dateForm) && StringUtils.endsWith(dateForm, type)) {
+                    queryName = StringUtils.removeEnd(dateForm, type);
+                    queryType = StringUtils.substring(dateForm, (queryName.length() + 1), dateForm.length() - 1);
                     break;
                 }
             }
-            //时间处理方式
-            if (StringUtils.endsWith(text, "[from]")) {
-                String[] params = StringUtils.split(text, "");
-            } else if (StringUtils.endsWith(text, "[to]")) {
-
+            SpecificationOperator formOperator = (SpecificationOperator) operator.get(queryName);
+            if (null == formOperator) {
+                formOperator = new SpecificationOperator();
             }
-        } else {
-            queryName = text;
+            if (queryType.equals("Long")) {
+                formOperator.put(GTE, Long.valueOf(value));
+            } else if (queryType.equals("Integer")) {
+                formOperator.put(GTE, Integer.valueOf(value));
+            } else if (queryType.equals("Double")) {
+                formOperator.put(GTE, Double.valueOf(value));
+            } else {
+                formOperator.put(GTE, value);
+            }
+            operator.put(queryName, formOperator);
         }
-        if (queryType.equals("Long")) {
-            operator.put(queryName, Long.valueOf(value[0]));
-        } else if (queryType.equals("Integer")) {
-            operator.put(queryName, Integer.valueOf(value[0]));
-        } else if (queryType.equals("Double")) {
-            operator.put(queryName, Double.valueOf(value[0]));
-        } else {
-            operator.put(queryName, value[0]);
+        if (StringUtils.endsWith(dateText, DATETIME_TO)) {
+            String dateTo = StringUtils.removeEnd(dateText, DATETIME_TO);
+            for (String type : init) {
+                if (StringUtils.isNotEmpty(dateTo) && StringUtils.endsWith(dateTo, type)) {
+                    queryName = StringUtils.removeEnd(dateTo, type);
+                    queryType = StringUtils.substring(dateTo, (queryName.length() + 1), dateTo.length() - 1);
+                    break;
+                }
+            }
+            SpecificationOperator toOperator = (SpecificationOperator) operator.get(queryName);
+            if (null == toOperator) {
+                toOperator = new SpecificationOperator();
+            }
+            if (queryType.equals("Long")) {
+                toOperator.put(LTE, Long.valueOf(value));
+            } else if (queryType.equals("Integer")) {
+                toOperator.put(LTE, Integer.valueOf(value));
+            } else if (queryType.equals("Double")) {
+                toOperator.put(LTE, Double.valueOf(value));
+            } else {
+                toOperator.put(LTE, value);
+            }
+            operator.put(queryName, toOperator);
         }
+
+    }
+
+    /**
+     * 验证是否是时间格式
+     * @param dateText
+     * @return
+     */
+    private boolean validateDatetime(String dateText) {
+        return StringUtils.endsWith(dateText, DATETIME_FORM) || StringUtils.endsWith(dateText, DATETIME_TO);
     }
 
     public SpecificationOperator getOperator() {
