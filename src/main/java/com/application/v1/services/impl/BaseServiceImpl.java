@@ -14,10 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @auther ttm
@@ -125,6 +122,8 @@ public abstract class BaseServiceImpl<T, ID extends Serializable> implements Bas
             } else if (value instanceof Double) {
                 mapSession.put(key + "[Double]", value.toString());
                 filterName.add(key + "[Double]");
+            } else if (value instanceof SpecificationOperator) {
+                siteSpecificationOperator(mapSession, filterName, key, ((SpecificationOperator) value));
             } else {
                 mapSession.put(key + "[String]", value.toString());
                 filterName.add(key + "[String]");
@@ -133,6 +132,22 @@ public abstract class BaseServiceImpl<T, ID extends Serializable> implements Bas
         if (MapUtils.isNotEmpty(mapSession)) {
             //去除session没有作为条件查询的值
             RequestServletUtil.fetchSession().setAttribute(FilterSession.FILTER + "/" + requestUrl, mapSession);
+        }
+    }
+
+    private void siteSpecificationOperator(MapSession mapSession, List<String> filterName, Object key, SpecificationOperator operator) {
+        for (String rowKey : operator.keySet()) {
+            String value = (String) operator.get(rowKey);
+            if (rowKey.equals(GTE)) {
+                String sessionKey = key + "[String]" + DATETIME_FORM;
+                mapSession.put(sessionKey, value);
+                filterName.add(sessionKey);
+            }
+            if (rowKey.equals(LTE)) {
+                String sessionKey = key + "[String]" + DATETIME_TO;
+                mapSession.put(sessionKey, value);
+                filterName.add(sessionKey);
+            }
         }
     }
 
@@ -259,68 +274,63 @@ public abstract class BaseServiceImpl<T, ID extends Serializable> implements Bas
             } else {
                 queryName = text;
             }
-            if (queryType.equals("Long")) {
-                operator.put(queryName, Long.valueOf(value[0]));
-            } else if (queryType.equals("Integer")) {
-                operator.put(queryName, Integer.valueOf(value[0]));
-            } else if (queryType.equals("Double")) {
-                operator.put(queryName, Double.valueOf(value[0]));
-            } else {
-                operator.put(queryName, value[0]);
+            putOperator(operator, queryType, queryName, value[0]);
+        }
+    }
+
+    private void processOperatorDateForm(SpecificationOperator operator, Map<String, Object> mustParams) {
+        String dateText = (String) mustParams.get("dateText");
+        List<String> init = (List<String>) mustParams.get("init");
+        String value = (String) mustParams.get("value");
+        //条件
+        String conditions = (String) mustParams.get("conditions");
+        //开始时间、结束时间
+        String date = (String) mustParams.get("datetime");
+
+        String queryName = "";
+        String queryType = "String";
+        String dateForm = StringUtils.removeEnd(dateText, date);
+        for (String type : init) {
+            if (StringUtils.isNotEmpty(dateForm) && StringUtils.endsWith(dateForm, type)) {
+                queryName = StringUtils.removeEnd(dateForm, type);
+                queryType = StringUtils.substring(dateForm, (queryName.length() + 1), dateForm.length() - 1);
+                break;
             }
+        }
+        SpecificationOperator specificationOperator = (SpecificationOperator) operator.get(queryName);
+        if (null == specificationOperator) {
+            specificationOperator = new SpecificationOperator();
+        }
+        putOperator(specificationOperator, queryType, conditions, value);
+        operator.put(queryName, specificationOperator);
+    }
+
+    private void putOperator(SpecificationOperator operator, String queryType, String conditions, String value) {
+        if (queryType.equals("Long")) {
+            operator.put(conditions, Long.valueOf(value));
+        } else if (queryType.equals("Integer")) {
+            operator.put(conditions, Integer.valueOf(value));
+        } else if (queryType.equals("Double")) {
+            operator.put(conditions, Double.valueOf(value));
+        } else {
+            operator.put(conditions, value);
         }
     }
 
     private void startDateForm(String dateText, List<String> init, String value, SpecificationOperator operator) {
-        String queryName = "";
-        String queryType = "String";
+        Map<String, Object> conditionsParamsMap = new HashMap<>();
+        conditionsParamsMap.put("dateText", dateText);
+        conditionsParamsMap.put("init", init);
+        conditionsParamsMap.put("value", value);
         if (StringUtils.endsWith(dateText, DATETIME_FORM)) {
-            String dateForm = StringUtils.removeEnd(dateText, DATETIME_FORM);
-            for (String type : init) {
-                if (StringUtils.isNotEmpty(dateForm) && StringUtils.endsWith(dateForm, type)) {
-                    queryName = StringUtils.removeEnd(dateForm, type);
-                    queryType = StringUtils.substring(dateForm, (queryName.length() + 1), dateForm.length() - 1);
-                    break;
-                }
-            }
-            SpecificationOperator formOperator = (SpecificationOperator) operator.get(queryName);
-            if (null == formOperator) {
-                formOperator = new SpecificationOperator();
-            }
-            if (queryType.equals("Long")) {
-                formOperator.put(GTE, Long.valueOf(value));
-            } else if (queryType.equals("Integer")) {
-                formOperator.put(GTE, Integer.valueOf(value));
-            } else if (queryType.equals("Double")) {
-                formOperator.put(GTE, Double.valueOf(value));
-            } else {
-                formOperator.put(GTE, value);
-            }
-            operator.put(queryName, formOperator);
+            conditionsParamsMap.put("conditions", GTE);
+            conditionsParamsMap.put("datetime", DATETIME_FORM);
+            processOperatorDateForm(operator, conditionsParamsMap);
         }
         if (StringUtils.endsWith(dateText, DATETIME_TO)) {
-            String dateTo = StringUtils.removeEnd(dateText, DATETIME_TO);
-            for (String type : init) {
-                if (StringUtils.isNotEmpty(dateTo) && StringUtils.endsWith(dateTo, type)) {
-                    queryName = StringUtils.removeEnd(dateTo, type);
-                    queryType = StringUtils.substring(dateTo, (queryName.length() + 1), dateTo.length() - 1);
-                    break;
-                }
-            }
-            SpecificationOperator toOperator = (SpecificationOperator) operator.get(queryName);
-            if (null == toOperator) {
-                toOperator = new SpecificationOperator();
-            }
-            if (queryType.equals("Long")) {
-                toOperator.put(LTE, Long.valueOf(value));
-            } else if (queryType.equals("Integer")) {
-                toOperator.put(LTE, Integer.valueOf(value));
-            } else if (queryType.equals("Double")) {
-                toOperator.put(LTE, Double.valueOf(value));
-            } else {
-                toOperator.put(LTE, value);
-            }
-            operator.put(queryName, toOperator);
+            conditionsParamsMap.put("conditions", LTE);
+            conditionsParamsMap.put("datetime", DATETIME_TO);
+            processOperatorDateForm(operator, conditionsParamsMap);
         }
 
     }

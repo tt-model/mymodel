@@ -41,16 +41,22 @@
                         </div>
                     </#if>
                     <#if searchType='datetime'>
+                        <#assign filterFormValue=''/>
+                        <#assign filterToValue=''/>
+                        <#if filter?exists>
+                            <#assign filterFormValue=filter[searchName + '[form]']!''/>
+                            <#assign filterToValue=filter[searchName + '[to]']!''/>
+                        </#if>
                         <div class="layui-row layui-date-row">
                             <div class="layui-col-md2"><label class="layui-date-label">从</label></div>
                             <div class="layui-col-md10">
-                                <input id="${searchName}-form" type="text" name="${searchName}[form]" class="layui-input ${searchFilter}">
+                                <input id="${searchName}-form" type="text" name="${searchName}[form]" value="${filterFormValue}" class="layui-input ${searchFilter}">
                             </div>
                         </div>
                         <div class="layui-row layui-date-row">
                             <div class="layui-col-md2"><label class="layui-date-label">到</label></div>
                             <div class="layui-col-md10">
-                                <input id="${searchName}-to" type="text" name="${searchName}[to]" class="layui-input ${searchFilter}">
+                                <input id="${searchName}-to" type="text" name="${searchName}[to]" value="${filterToValue}" class="layui-input ${searchFilter}">
                             </div>
                         </div>
                     </#if>
