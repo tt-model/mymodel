@@ -3,22 +3,21 @@ package com.application.v1.services.impl;
 import com.application.v1.core.session.FilterSession;
 import com.application.v1.core.session.MapSession;
 import com.application.v1.core.session.PageSession;
-import com.application.v1.library.PageUtil;
 import com.application.v1.library.RequestServletUtil;
 import com.application.v1.repositorys.BaseRepository;
 import com.application.v1.repositorys.SpecificationOperator;
 import com.application.v1.services.BaseService;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
-import org.hamcrest.core.IsNull;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @auther ttm
@@ -242,6 +241,12 @@ public abstract class BaseServiceImpl<T, ID extends Serializable> implements Bas
                     queryType = StringUtils.substring(text, (queryName.length() + 1), text.length() - 1);
                     break;
                 }
+            }
+            //时间处理方式
+            if (StringUtils.endsWith(text, "[from]")) {
+                String[] params = StringUtils.split(text, "");
+            } else if (StringUtils.endsWith(text, "[to]")) {
+
             }
         } else {
             queryName = text;

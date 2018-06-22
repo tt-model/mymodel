@@ -3,25 +3,17 @@ package com.application.v1.interceptors;
 import com.application.v1.BaseParseXml;
 import com.application.v1.core.session.FilterSession;
 import com.application.v1.core.session.MapSession;
-import com.application.v1.library.JsonUtil;
-import com.application.v1.library.Page;
 import com.application.v1.library.RequestServletUtil;
 import com.application.v1.orms.User;
 import com.application.v1.shiro.ShiroUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.springframework.core.MethodParameter;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.util.Enumeration;
-import java.util.Map;
 
 /**
  * 自定义拦截器
