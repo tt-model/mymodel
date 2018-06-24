@@ -67,8 +67,10 @@
         <tbody>
             <#list collection as row>
             <tr>
+                <#assign rowId=""/>
                 <#list headerTitle as head>
                     <#assign name = head.name/>
+                    <#assign key = head.key/>
                     <#if name != "action">
                         <#assign rowNum=''/>
                         <#list search as searchRow>
@@ -87,13 +89,16 @@
                         <td>
                             <div class="layui-table-cell">
                                 ${rowNum}
+                                <#if key=="id">
+                                    <#assign rowId=rowNum/>
+                                </#if>
                             </div>
                         </td>
                     <#else>
                         <td>
                             <div class="layui-btn-group layui-table-cell">
-                                <button class="layui-btn layui-btn-small"><i class="layui-icon">&#xe642;</i>编辑</button>
-                                <button class="layui-btn layui-btn-danger layui-btn-small"><i class="layui-icon">&#xe640;</i>删除</button>
+                                <button class="layui-btn layui-btn-small" onclick="javascript:window.location.href='/v1/user/userEdit/${rowId}'"><i class="layui-icon">&#xe642;</i>编辑</button>
+                                <button class="layui-btn layui-btn-danger layui-btn-small" onclick="myajax.ajaxDelete('/v1/user/userDelete/${rowId}', ${rowId})"><i class="layui-icon">&#xe640;</i>删除</button>
                             </div>
                         </td>
                     </#if>

@@ -70,4 +70,6 @@ public interface UserService extends BaseService {
 
     public void userShow();
 
+    public boolean userDelete(Long id);
+
 }

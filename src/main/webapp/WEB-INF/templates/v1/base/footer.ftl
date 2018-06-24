@@ -8,6 +8,7 @@
 <script type="text/javascript" src="/static/js/dialog.js"></script>
 <script type="text/javascript" src="/static/js/search.js"></script>
 <script type="text/javascript" src="/static/js/dateTime.js"></script>
+<script type="text/javascript" src="/static/js/myajax.js"></script>
 <script>
     //JavaScript代码区域
     layui.use('element', function(){

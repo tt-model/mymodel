@@ -1,12 +1,12 @@
 package com.application.v1.services.impl;
 
 import com.application.v1.daos.UserDao;
-import com.application.v1.library.AesEncodeUtil;
-import com.application.v1.library.ServiceResponse;
-import com.application.v1.library.ServiceResponseUtil;
+import com.application.v1.library.*;
 import com.application.v1.orms.User;
 import com.application.v1.repositorys.SpecificationOperator;
 import com.application.v1.services.UserService;
+import com.application.v1.shiro.ShiroUtils;
+import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @auther ttm
@@ -60,12 +61,12 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
             return ServiceResponseUtil.fail("密码不能为空!");
         }
 
-        String encodePassword = "";
-        try {
-            encodePassword = AesEncodeUtil.encryption(password);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        String encodePassword = "";
+//        try {
+//            encodePassword = AesEncodeUtil.encryption(password);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         User fetchUser = userDao.findUserByUserNameAndPassword(userName, password);
         if (fetchUser == null) {
             return ServiceResponseUtil.fail("用户名或者密码不正确!");
@@ -81,13 +82,26 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
 
     @Override
     public boolean userSave(User user) {
+        String salt = RandomStringUtils.randomAlphanumeric(20);
+        String password = ShiroUtils.sha256(user.getPassword(), salt);
+        String createDate = DateUtil.fetchCurrentTime();
+        user.setSalt(salt);
+        user.setPassword(password);
+        user.setCreateTime(createDate);
+        user.setStatus(1);
+        DumperUtil.dump(user);
         User saveUser = userDao.save(user);
         return saveUser.getUserId() > 0 ? true : false;
+//        return true;
     }
 
     @Override
     public User userFind(Long id) {
-        return userDao.findOne(id);
+        if (null != id) {
+            return userDao.findOne(id);
+        }
+
+        return null;
     }
 
     @Override
@@ -98,6 +112,16 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
     @Override
     public void userShow() {
 
+    }
+
+    @Override
+    public boolean userDelete(Long id) {
+        User findOne = userDao.findOne(id);
+        if (null != findOne) {
+            userDao.delete(id);
+            return true;
+        }
+        return false;
     }
 
     @Override

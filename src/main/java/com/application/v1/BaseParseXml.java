@@ -16,10 +16,7 @@ import org.springframework.core.io.ResourceLoader;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 解析 管理页面
@@ -73,9 +70,11 @@ public class BaseParseXml {
             for (Element element : headerColumnList) {
                 String name = element.attributeValue("name");
                 String title = element.attributeValue("title");
+                String key = element.attributeValue("key");
                 Map<String, Object> columnMap = new HashMap<>();
                 columnMap.put("name", name);
                 columnMap.put("title", title);
+                columnMap.put("key", Optional.ofNullable(key).orElse(""));
                 parseXmlList.add(columnMap);
             }
             xmlMap.put("managerUrl", managerUrl);

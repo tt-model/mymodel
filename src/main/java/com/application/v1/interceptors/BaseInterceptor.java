@@ -39,7 +39,7 @@ public class BaseInterceptor extends HandlerInterceptorAdapter {
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         logger.info("post handle");
         //如果对应的请求设置了 这几个值 说明页面需要做解析处理
-        if (modelAndView.getModelMap().containsAttribute("main")) {
+        if (null != modelAndView && modelAndView.getModelMap().containsAttribute("main")) {
             BaseParseXml baseParseXml = new BaseParseXml();
             String requestUrl = request.getRequestURI();
             System.out.println("ttm | " + requestUrl);
@@ -52,9 +52,11 @@ public class BaseInterceptor extends HandlerInterceptorAdapter {
                 modelAndView.addObject(FilterSession.FILTER, mapSession);
             }
 //            System.out.println("show modelAndView : " + JsonUtil.toJson(modelAndView));
-        } else if (modelAndView.getModelMap().containsKey("add")) {
+        } else if (null != modelAndView && modelAndView.getModelMap().containsKey("add")) {
 
-        } else if (modelAndView.getModelMap().containsKey("edit")) {
+        } else if (null != modelAndView && modelAndView.getModelMap().containsKey("edit")) {
+
+        } else {
 
         }
         super.postHandle(request, response, handler, modelAndView);

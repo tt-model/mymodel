@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Map;
@@ -55,10 +54,13 @@ public class LoginController {
         UsernamePasswordToken token = new UsernamePasswordToken(user.getUserName(), user.getPassword());
         try {
             ShiroUtils.getSubject().login(token);
+            view.addObject("response", JsonUtil.toJson(ServiceResponseUtil.success()));
         } catch (UnknownAccountException e) {
             LOG.error("验证错误");
+        } catch (Exception e) {
+            LOG.error("未知错误");
+            view.addObject("response", JsonUtil.toJson(ServiceResponseUtil.error()));
         }
-        view.addObject("response", JsonUtil.toJson(ServiceResponseUtil.success()));
         view.setViewName("/v1/base/response");
         return view;
     }

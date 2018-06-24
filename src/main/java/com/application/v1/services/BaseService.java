@@ -50,5 +50,4 @@ public interface BaseService<T, ID extends Serializable> {
 
     public PageRequest fetchPage();
 
-
 }
